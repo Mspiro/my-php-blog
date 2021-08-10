@@ -18,20 +18,35 @@ body {
       overflow: hidden;
   }
 
+
   .box:hover{
     background: linear-gradient(to left,#aaa6a6, #CCCCCC );
   }
   .content{ 
-      padding: 10px 100px;  
-      width: 60%;
-      float: left;
+      padding: 100px 40%;  
+      width: 100%;
+      float: center;
+      display: block;
       border-left-color: #FFF;
       border-right-color: #FFF;
    }
-   .content h1{ 
+   .content label{ 
    text-decoration: none;
+   font-size: large;
+   font-weight: bold;
     }
-  
+  .content input{ 
+    text-decoration: none;
+    border-radius: 10px;
+    width: 400px;
+    height: 30px;
+      }
+    .inline{
+      display:contents ;
+      
+    }
+    
+
   .sidebar a {
     display: block;
     color: black;

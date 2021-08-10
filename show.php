@@ -38,7 +38,7 @@ if($row['articleId'] == ''){
             echo implode(", ", $links);
             
             echo '</p>';
-              echo '<hr>';     
+            echo '<hr>';     
               
             echo '<p >'.$row['articleContent'].'</p>';    
       
@@ -47,7 +47,7 @@ if($row['articleId'] == ''){
 
             
         <?php 
-$baseUrl="http://localhost/blog/"; 
+$baseUrl="./"; 
  $slug=$row['articleSlug']; 
   $articleIdc=$row['articleId']; 
 

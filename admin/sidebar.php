@@ -1,5 +1,16 @@
+    <?php 
+    require_once('../includes/config.php');
+    require_once('classes/class.user.php');
+    ?>
+
+
 <div class="sidebar">
-    <h2>Quick Shorcut</h2>
+    <h2>Quick Shorcut For:
+    <?php
+    $auther= $db->query("SELECT username FROM users where userid='".$_SESSION['userid']."'");
+    $autherName= $auther->fetch(PDO::FETCH_ASSOC);
+    echo "".$autherName['username'];
+    ?>    </h2>
   
       <a href="index.php">View Articles </a>
       <a href="add-blog-article.php">Add New Blog Post </a>

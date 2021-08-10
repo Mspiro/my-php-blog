@@ -26,6 +26,7 @@ if($user->is_logged_in()){
                     $result = $db->query("SELECT username, password,userid FROM users WHERE username='".$username."' and password='".$password."'")->fetch(PDO::FETCH_OBJ);   
                     if($result->username==$username and $result->password==$password ){
                         $_SESSION['loggedin']=true;
+                        $_SESSION['username']=$result->username;
                         $_SESSION['userid']=$result->userid;
                         header('location:index.php');            
                         exit;

@@ -11,12 +11,14 @@
         <?php
             try {   
                     //selecting data by id 
-               $stmt = $db->query('SELECT articleId, articleTitle, articleSlug, articleDescrip, articleDate, articleTags FROM article ORDER BY articleId DESC');
-
-                while($row = $stmt->fetch()){
-                    
+               $stmt = $db->query('SELECT articleId, articleTitle, articleSlug, articleDescrip, articleDate, articleTags,userid FROM article ORDER BY articleId DESC');
+               
+               while($row = $stmt->fetch()){
+                    $auther= $db->query("SELECT username FROM users where userid='".$row['userid']."'");
+                    $autherName= $auther->fetch(PDO::FETCH_ASSOC);
                     echo '<div class="box">';
                         echo '<h1><a href="'.$row['articleSlug'].'" style="text-decoration:none;">'.$row['articleTitle'].'</a></h1>';
+                        echo "<strong>Auther: </strong>".$autherName['username'];
                         echo '<p>Tagged as: ';
                         $links = array();
                         $parts = explode(',', $row['articleTags']);
