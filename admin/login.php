@@ -25,6 +25,7 @@ include("../header.php");
                 $username=trim($_POST['username']);
                 $password=trim($_POST['password']);
                 if($username && $password){
+                    $password = md5($password);
                     $result = $db->query("SELECT username, password,userid FROM users WHERE username='".$username."' and password='".$password."'")->fetch(PDO::FETCH_OBJ);   
                     if($result->username==$username and $result->password==$password ){
                         $_SESSION['loggedin']=true;

@@ -33,10 +33,12 @@
                         $error[]='Please enter the email address ';
                     }
 
-                    if(!isset($error)){                            
+                    if(!isset($error)){   
+                        // $password = md5($password);
                         try {
-                            $stmt=$db->prepare('INSERT INTO users(username,password,email,isAuther) VALUES(:username, :password, :email, :isAuther)');
-                            $stmt->execute(array(':username' =>$username, ':password' => $password, ':email'=>$email, ':isAuther'=>$isAuther));
+                            $stmt=$db->prepare('INSERT INTO users(username,password,email,isAuther) VALUES(:username, :password, :email, :isAuther )');
+                            $password = md5($password);
+                            $stmt->execute(array(':username' =>$username, ':password' =>$password, ':email'=>$email, 'isAuther'=>$isAuther));
                             
                             header('location: blog-users.php?action=added');
                             exit;

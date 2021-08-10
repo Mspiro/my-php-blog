@@ -11,7 +11,7 @@
 <body>
     <ul class="ulclass">
     <li><a href="index.php">Dashbord</a></li>
-    <li><a href="blog-users.php">Users</a></li>
+    <li><a href="blog-users.php">Profile</a></li>
     <li><a href="../" target="_blank">Visit Blog</a></li>
     <li><a href="logout.php"><font color="red">Logout</font></a></li>
     </ul>
