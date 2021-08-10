@@ -1,6 +1,7 @@
-"# my-php-blog" 
-<!-- 
- 
+"# my-php-blog"
+
+<!--
+
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 
@@ -119,5 +120,3 @@ ALTER TABLE `users`
 COMMIT;
 
   -->
- 
- 

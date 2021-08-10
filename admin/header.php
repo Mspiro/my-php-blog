@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,12 +9,16 @@
     <link rel="stylesheet" type="text/css" href="http://localhost/blog/assets/css-min.css">
     <title>Header</title>
 </head>
+
 <body>
     <ul class="ulclass">
-    <li><a href="index.php">Dashbord</a></li>
-    <li><a href="blog-users.php">Profile</a></li>
-    <li><a href="../" target="_blank">Visit Blog</a></li>
-    <li><a href="logout.php"><font color="red">Logout</font></a></li>
+        <li><a href="index.php">Dashbord</a></li>
+        <li><a href="blog-users.php">Profile</a></li>
+        <li><a href="../" target="_blank">Visit Blog</a></li>
+        <li><a href="logout.php">
+                <font color="red">Logout</font>
+            </a></li>
     </ul>
 </body>
+
 </html>

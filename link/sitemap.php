@@ -82,5 +82,3 @@ foreach ($finalTags as $tag) {
     }
 
 echo '</urlset>' . PHP_EOL;
-
-?>

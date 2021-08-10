@@ -59,15 +59,14 @@ p {
   background-color: #acacac;
 }
 
-.invalid{
-  color:#E7625F;
+.invalid {
+  color: #e7625f;
 }
 .footer {
   float: bottom;
   background-color: #cccccc;
   color: black;
   clear: both;
-
 }
 .footer a {
   color: #4d414c;

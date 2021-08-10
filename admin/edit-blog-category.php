@@ -2,44 +2,46 @@
 require_once('../includes/config.php');
 
 
-if(!$user->is_logged_in()){ header('Location: login.php'); }
+if (!$user->is_logged_in()) {
+    header('Location: login.php');
+}
 ?>
 
 <?php include("head.php");  ?>
-    <title>EDIT Category- Blog</title>
-    <?php include("header.php");  ?>
+<title>EDIT Category- Blog</title>
+<?php include("header.php");  ?>
 
 <div class="content">
- <h2>Edit Category</h2>
+    <h2>Edit Category</h2>
 
 
     <?php
 
     //if form has been submitted process it
-    if(isset($_POST['submit'])){
+    if (isset($_POST['submit'])) {
 
-        $_POST = array_map( 'stripslashes', $_POST );
+        $_POST = array_map('stripslashes', $_POST);
 
         //collect form data
         extract($_POST);
 
         //very basic validation
-        if($categoryId ==''){
+        if ($categoryId == '') {
             $error[] = 'Invalid id.';
         }
 
-        if($CategoryName ==''){
+        if ($CategoryName == '') {
             $error[] = 'Please enter the Category Title .';
         }
 
-        if(!isset($error)){
+        if (!isset($error)) {
 
             try {
 
                 $categorySlug = slug($CategoryName);
 
                 //insert into database
-                $stmt = $db->prepare('UPDATE category SET CategoryName = :CategoryName, categorySlug = :categorySlug WHERE categoryId = :categoryId') ;
+                $stmt = $db->prepare('UPDATE category SET CategoryName = :CategoryName, categorySlug = :categorySlug WHERE categoryId = :categoryId');
                 $stmt->execute(array(
                     ':CategoryName' => $CategoryName,
                     ':categorySlug' => $categorySlug,
@@ -49,13 +51,10 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
                 //redirect to categories  page
                 header('Location: blog-categories.php?action=updated');
                 exit;
-
-            } catch(PDOException $e) {
+            } catch (PDOException $e) {
                 echo $e->getMessage();
             }
-
         }
-
     }
 
     ?>
@@ -63,40 +62,38 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 
     <?php
     //check for any errors
-    if(isset($error)){
-        foreach($error as $error){
-            echo $error.'<br>';
+    if (isset($error)) {
+        foreach ($error as $error) {
+            echo $error . '<br>';
         }
     }
 
-        try {
+    try {
 
-            $stmt = $db->prepare('SELECT categoryId, CategoryName FROM category WHERE categoryId = :categoryId') ;
-            $stmt->execute(array(':categoryId' => $_GET['id']));
-            $row = $stmt->fetch(); 
-
-        } catch(PDOException $e) {
-            echo $e->getMessage();
-        }
+        $stmt = $db->prepare('SELECT categoryId, CategoryName FROM category WHERE categoryId = :categoryId');
+        $stmt->execute(array(':categoryId' => $_GET['id']));
+        $row = $stmt->fetch();
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
 
     ?>
 
     <form action="" method="post">
-        <input type='hidden' name='categoryId' value='<?php echo $row['categoryId'];?>'>
+        <input type='hidden' name='categoryId' value='<?php echo $row['categoryId']; ?>'>
 
         <p><label>Category Title</label><br>
-        <input type='text' name='CategoryName' value='<?php echo $row['CategoryName'];?>'>
+            <input type='text' name='CategoryName' value='<?php echo $row['CategoryName']; ?>'>
 
-        </p><p><input type="submit" name="submit" value="Update"></p>
+        </p>
+        <p><input type="submit" name="submit" value="Update"></p>
 
     </form>
 
 
 </div>
-  <?php include("sidebar.php");  ?>
+<?php include("sidebar.php");  ?>
 
 
 
 <?php include("footer.php");  ?>
-
-

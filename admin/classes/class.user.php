@@ -16,7 +16,3 @@ class User1{
         session_destroy();
     }
 }
-
-
-?>
-

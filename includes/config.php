@@ -25,6 +25,3 @@
     $user=new User($db);
 
     include("functions.php");
-?>
-
-
