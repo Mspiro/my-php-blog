@@ -5,7 +5,7 @@ include('add-stuff.php');
 <div class="content">
     <h2>Add User</h2>
     <?php
-        $stmt=$db->query("SELECT userid, username FROM users where isAuther='0'");
+        $stmt=$db->query("SELECT userid, username FROM users where isAuther=0");
         while($row = $stmt->fetch())
             if($row['userid']==$_SESSION['userid']){
                     if(isset($_POST['submit'])){

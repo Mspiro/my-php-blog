@@ -6,6 +6,8 @@ if($user->is_logged_in()){
     header('location:index.php');
 }
 
+include("../header.php");
+
 ?>
 
 <!DOCTYPE html>

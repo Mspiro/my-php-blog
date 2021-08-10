@@ -39,7 +39,10 @@ body {
     text-decoration: none;
   
   }
-   
+   .account-forms{
+     margin: auto;
+    width: 400px;
+   }
   .sidebar a.active {
     background-color: #4CAF50;
     color: white;
