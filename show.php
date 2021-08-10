@@ -60,12 +60,12 @@ if ($row['articleId'] == '') {
       <a target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo $baseUrl . $slug; ?>"> <img src="assets/icon/facebook.png" style="widht:50px; height:50px;"></a>
 
       <a target="_blank" href="http://twitter.com/share?text=Visit the link &url=<?php echo $baseUrl . $slug; ?>&hashtags=blog,technosmarter,programming,tutorials,codes,examples,language,development">
-        <img src="assets/icon/twitter.png" style="widht:50px; height:50px;"></a>
+        <img src="assets/icon/twitter.png" style="width:50px; height:50px;"></a>
 
       <a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo $baseUrl . $slug; ?>"> <img src="assets/icon/linkedin.png" style="widht:50px; height:50px; "></a>
 
       <a target="_blank" href="http://pinterest.com/pin/create/button/?url=<?php echo $baseUrl . $slug; ?>">
-        <img src="assets/icon/pinterest.png" style="widht:50px; height:50px;"></a>
+        <img src="assets/icon/pinterest.png" style="width:50px; height:50px;"></a>
     </ul>
 
     <h2> Recomended Posts:</h2>
