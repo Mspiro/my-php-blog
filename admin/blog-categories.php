@@ -1,20 +1,9 @@
 <?php
-//include config
 require_once('../includes/config.php');
 
 //if not logged in redirect to login page
 if (!$user->is_logged_in()) {
     header('Location: login.php');
-}
-
-//show message from add / edit page
-if (isset($_GET['delcat'])) {
-
-    $stmt = $db->prepare('DELETE FROM category WHERE categoryId = :categoryId');
-    $stmt->execute(array(':categoryId' => $_GET['delcat']));
-
-    header('Location: categories.php?action=deleted');
-    exit;
 }
 
 ?>
@@ -31,7 +20,6 @@ if (isset($_GET['delcat'])) {
 
 <div class="content">
     <?php
-    //show message from add / edit page
     if (isset($_GET['action'])) {
         echo '<h3>Category ' . $_GET['action'] . '.</h3>';
     }
@@ -54,7 +42,7 @@ if (isset($_GET['delcat'])) {
 
                 <td>
                     <button class="editbtn"> <a href="edit-blog-category.php?id=<?php echo $row['categoryId']; ?>">Edit</a> </button>
-                    <button class="delbtn"> <a href="javascript:delcat('<?php echo $row['categoryId']; ?>','<?php echo $row['categorySlug']; ?>')">Delete</a></button>
+                    <button class="delbtn"> <a href="del-blog-category.php?id=<?php echo $row['categoryId']; ?>">Delete</a> </button>
                 </td>
 
         <?php
