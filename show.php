@@ -13,7 +13,7 @@ if ($row['articleId'] == '') {
 
 <?php include("head.php");  ?>
 
-<title><?php echo $row['articleTitle']; ?>-Blog</title>
+<title><?php echo $row['articleTitle']; ?></title>
 <meta name="description" content="<?php echo $row['articleDescrip']; ?>">
 <meta name="keywords" content="Article Keywords">
 
@@ -28,14 +28,14 @@ if ($row['articleId'] == '') {
 
     echo '<p>Posted on ' . date('jS M Y H:i:s', strtotime($row['articleDate'])) . ' in ';
 
-    $stmt2 = $db->prepare('SELECT categoryName, categorySlug FROM category,cat_links WHERE category.categoryId=cat_links.categoryId AND cat_links.articleId=:articleId');
-    $stmt2->execute(array(':articleId' => $row['articleId']));
-    $catRow = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-    $links = array();
-    foreach ($catRow as $cat) {
-      $links[] = "<a href='category/" . $cat['categorySlug'] . "'>" . $cat['categoryName'] . "</a>";
-    }
-    echo implode(", ", $links);
+    // $stmt2 = $db->prepare('SELECT categoryName, categorySlug FROM category,cat_links WHERE category.categoryId=cat_links.categoryId AND cat_links.articleId=:articleId');
+    // $stmt2->execute(array(':articleId' => $row['articleId']));
+    // $catRow = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+    // $links = array();
+    // foreach ($catRow as $cat) {
+    //   $links[] = "<a href='./" . $cat['categorySlug'] . "'>" . $cat['categoryName'] . "</a>";
+    // }
+    // echo implode(", ", $links);
 
     echo '</p>';
     echo '<hr>';
@@ -87,6 +87,7 @@ if ($row['articleId'] == '') {
     ?>
 
   </div>
-  <?php include("sidebar.php"); ?>
+  <!-- <?php include("sidebar.php"); ?> -->
 </div>
 <?php include("footer.php"); ?>
+

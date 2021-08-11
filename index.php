@@ -6,7 +6,7 @@
 
 
 <div class="container">
-    <?php include("sidebar.php"); ?>
+    
     <div class="content">
         <?php
         try {
@@ -19,29 +19,13 @@
                 echo '<div class="box">';
                 echo '<h1><a href="' . $row['articleSlug'] . '" style="text-decoration:none;">' . $row['articleTitle'] . '</a></h1>';
                 echo "<strong>Auther: </strong>" . $autherName['username'];
-                echo '<p>Tagged as: ';
-                $links = array();
-                $parts = explode(',', $row['articleTags']);
-                foreach ($parts as $tags) {
-                    $links[] = "<a href='tag/" . $tags . "'>" . $tags . "</a>";
-                }
-                echo implode(", ", $links);
-                echo '</p>';
+                
                 echo '<hr>';
                 //Display the date 
 
-                echo '<p>Posted on ' . date('jS M Y H:i:s', strtotime($row['articleDate'])) . ' in ';
+                echo '<p>Posted on ' . date('jS M Y ', strtotime($row['articleDate'])) ;
 
-                $stmt2 = $db->prepare('SELECT categoryName, categorySlug FROM category, cat_links WHERE category.categoryId = cat_links.categoryId AND cat_links.articleId = :articleId');
-                $stmt2->execute(array(':articleId' => $row['articleId']));
-
-                $catRow = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-                $links = array();
-                foreach ($catRow as $cat) {
-                    $links[] = "<a href='category/" . $cat['categorySlug'] . "'>" . $cat['categoryName'] . "</a>";
-                }
-                echo implode(", ", $links);
-
+               
                 echo '</p>';
                 echo '<p>' . $row['articleDescrip'] . '</p>';
                 echo '<p><button class="readbtn"><a href="' . $row['articleSlug'] . '">Read More</a></button></p>';
@@ -55,7 +39,5 @@
 
     </div>
 </div>
-
-
 <?php //footer content 
 include("footer.php");  ?>

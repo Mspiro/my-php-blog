@@ -2,7 +2,7 @@
 
 <?php include("head.php");  ?>
 
-<title><?php echo htmlspecialchars($_GET['id']); ?>-Techno Smarter</title>
+<title><?php echo htmlspecialchars($_GET['id']); ?></title>
 <?php include("header.php");  ?>
 <div class="content">
 
@@ -29,7 +29,7 @@
 
             $links = array();
             foreach ($catRow as $cat) {
-                $links[] = "<a href='../category/" . $cat['categorySlug'] . "'>" . $cat['categoryName'] . "</a>";
+                $links[] = "<a href='../" . $cat['categorySlug'] . "'>" . $cat['categoryName'] . "</a>";
             }
             echo implode(", ", $links);
 
