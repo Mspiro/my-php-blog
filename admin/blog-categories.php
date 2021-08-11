@@ -41,8 +41,8 @@ if (!$user->is_logged_in()) {
         ?>
 
                 <td>
-                    <button class="editbtn"> <a href="edit-blog-category.php?id=<?php echo $row['categoryId']; ?>">Edit</a> </button>
-                    <button class="delbtn"> <a href="del-blog-category.php?id=<?php echo $row['categoryId']; ?>">Delete</a> </button>
+                    <!-- <button class="editbtn"> <a href="edit-blog-category.php?id=<?php echo $row['categoryId']; ?>">Edit</a> </button> -->
+                    <!-- <button class="delbtn"> <a href="del-blog-category.php?id=<?php echo $row['categoryId']; ?>">Delete</a> </button> -->
                 </td>
 
         <?php
