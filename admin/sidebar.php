@@ -9,19 +9,21 @@
         <?php
         $auther = $db->query("SELECT username FROM users where userid='" . $_SESSION['userid'] . "'");
         $autherName = $auther->fetch(PDO::FETCH_ASSOC);
-        echo "" . $autherName['username'];
+        echo "<span style='color:#ECF87F'>" .strtoupper($autherName['username'])."</span>";
         ?> </h2>
 
-      <a href="blog-users.php">Profile </a>
-      <a href="index.php">My Articles </a>
-      <a href="add-blog-article.php">Add New Blog Post </a>
-      <a href="blog-categories.php">View Categories </a>
-      <a href="add-blog-category.php">Add New Category </a>
+      <a href="blog-users.php">Profile <hr> </a>
+      <!-- <hr> -->
+      <a href="index.php">My Articles<hr> </a>
+      
+      <a href="add-blog-article.php">Add New Blog Post <hr></a>
+      <a href="blog-categories.php">View Categories<hr> </a>
+      <a href="add-blog-category.php">Add New Category <hr></a>
       <!-- <a href="add-blog-user.php">Add New Users  </a> -->
-      <a target="_blank" href="../">Visit Blog </a>
+      <a target="_blank" href="../">Visit Blog <hr></a>
       <?php
       $sql = $db->query('select count(*) from article')->fetchColumn();
-      echo '<h2>Total Posted ' . '<span class="invalid">' . $sql . '</span>' . '</h2>';
+      echo '<h2> <span style="text-decoration: underline;">Total Posts: </span> ' . '<span class="text">' . $sql . '</span>' . '</h2>';
       ?>
 
 
