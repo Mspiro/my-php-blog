@@ -6,8 +6,6 @@ if ($user->is_logged_in()) {
     header('location:index.php');
 }
 
-include("../header.php");
-
 ?>
 
 <!DOCTYPE html>
@@ -20,13 +18,13 @@ include("../header.php");
     <title>Admin Login</title>
     <link rel="stylesheet" href="assets/style.css" class="css">
 </head>
-
 <body>
     <?php
     if (isset($_POST['submit'])) {
         $username = trim($_POST['username']);
         $password = trim($_POST['password']);
         if ($username && $password) {
+            try{
             $password = md5($password);
             $result = $db->query("SELECT username, password,userid FROM users WHERE username='" . $username . "' and password='" . $password . "'")->fetch(PDO::FETCH_OBJ);
             if ($result->username == $username and $result->password == $password) {
@@ -38,6 +36,9 @@ include("../header.php");
             } else {
                 echo "<p class='invalid'>Invalid Username or Password </p>";
             }
+        }catch (PDOException $e) {
+            echo $e->getMessage();
+        }
         } else {
             echo "<p class='invalid'>Please enter all credentials </p>";
         }
@@ -57,6 +58,7 @@ include("../header.php");
         <label></label>
         <input type="submit" name="submit" value="SignIn" />
     </form>
+    <h3 class="form"> <a href="send-mail.php">Forgot Passward?</a> </h3>
 </body>
 
 </html>
