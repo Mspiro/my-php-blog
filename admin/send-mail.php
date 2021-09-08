@@ -28,21 +28,19 @@
                     $mail = new PHPMailer;
                     $emailid = 'meeninath.dhobale@qed42.com';
                     $password = 'z6jxakav9m';
-                    $mail->isSMTP();                                      // Set mailer to use SMTP
-                    $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-                    $mail->SMTPAuth = true;                               // Enable SMTP authentication
-                    $mail->Username = $emailid;                 // SMTP username
-                    $mail->Password = $password;                           // SMTP password
-                    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-                    $mail->Port = 587;                                    // TCP port to connect to
+                    $mail->isSMTP();                                     
+                    $mail->Host = 'smtp.gmail.com';  
+                    $mail->SMTPAuth = true;                            
+                    $mail->Username = $emailid;                
+                    $mail->Password = $password;                       
+                    $mail->SMTPSecure = 'tls';                          
+                    $mail->Port = 587;                                   
                     $mail->setFrom($emailid, 'Blog');
-                    $mail->addAddress($result->email, $result->username);     // Add a recipient                
+                    $mail->addAddress($result->email, $result->username);                   
                     $mail->addReplyTo($emailid, 'Blog');
-                    $mail->isHTML(true);                                  // Set email format to HTML
+                    $mail->isHTML(true);                                
                     $mail->Subject = 'Change Password- Blog.com';
-                    $mail->Body='<a href="http://localhost/blog/admin/forget-password.php/?id='.$result->userid.' ">here</a>';
-                    // $mail->Body    = 'Hello ' .$result->username. ', <br>For change your current password click 
-                    // <a href="forget-password.php?id=<?php echo $result->userid >" >here</a> ';
+                    $mail->Body='Hello '.$result->username.'<br>For change your current password please click <a href="http://localhost/blog/admin/forget-password.php/?id='.$result->userid.'>here</a>';
                     
                     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
                     if (!$mail->send()) {
