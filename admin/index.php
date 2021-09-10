@@ -36,6 +36,7 @@ if (isset($_GET['delpost'])) {
     ?>
 
     <table>
+        
         <tr>
             <th>Article Title</th>
             <th>Updated On</th>
@@ -45,17 +46,18 @@ if (isset($_GET['delpost'])) {
 
         <?php
         try {
-            $stmt = $db->query("SELECT articleId, articleTitle, articleEditDate FROM article where userid='" . $_SESSION['userid'] . "'  ORDER BY articleId DESC");
+            $stmt = $db->query("SELECT articleId, articleTitle, articleEditDate, articleSlug FROM article where userid='" . $_SESSION['userid'] . "'  ORDER BY articleId DESC");
             while ($row = $stmt->fetch()) {
                 echo '<tr>';
-                echo '<td>' . $row['articleTitle'] . '</td>';
+                // echo '<td><a href="' . $row['articleSlug'] . '" style="text-decoration:none;">' . $row['articleTitle'] . '</a></td>';
+                echo '<td> <a href="show.php?id='.$row['articleSlug'].'">' . $row['articleTitle'] . '</a></td>';
                 echo '<td>' . date(' jS M Y', strtotime($row['articleEditDate'])) . '</td>';
         ?>
                 <td>
                     <button class="editbtn">
                         <a href="edit-blog-article.php?id=<?php echo $row['articleId']; ?>">Edit</a>
                     </button>
-                </td>
+                </td>   
                 <td>
                     <button class="delbtn"><a href="del-blog-post.php?id=<?php echo $row['articleId']; ?>">Delete</a></button>
                 </td>

@@ -1,14 +1,14 @@
-<?php include_once("includes/config.php");
+<?php include_once("../includes/config.php");
 
 $stmt = $db->prepare('SELECT articleId,articleDescrip,articleTitle, articleSlug,  articleContent, articleDate, articleImage FROM article WHERE articleSlug = :articleSlug');
 $stmt->execute(array(':articleSlug' => $_GET['id']));
 $row = $stmt->fetch();
 
 //if post does not exists redirect user.
-if ($row['articleId'] == '') {
-  header('Location: ./');
-  exit;
-}
+// if ($row['articleId'] == '') {
+//   header('Location: ./');
+//   exit;
+// }
 ?>
 
 <?php include("head.php");  ?>
@@ -23,36 +23,32 @@ if ($row['articleId'] == '') {
   <div class="content">
 
     <?php
-    if($_SESSION){
-      echo '<div>';
-      echo '<h1>' . $row['articleTitle'] . '</h1>';
+    echo '<div>';
+    echo '<h1>' . $row['articleTitle'] . '</h1>';
 
-      echo '<p>Posted on ' . date('jS M Y H:i:s', strtotime($row['articleDate'])) ;
+    echo '<p>Posted on ' . date('jS M Y H:i:s', strtotime($row['articleDate'])) ;
 
-      // $stmt2 = $db->prepare('SELECT categoryName, categorySlug FROM category,cat_links WHERE category.categoryId=cat_links.categoryId AND cat_links.articleId=:articleId');
-      // $stmt2->execute(array(':articleId' => $row['articleId']));
-      // $catRow = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-      // $links = array();
-      // foreach ($catRow as $cat) {
-      //   $links[] = "<a href='./" . $cat['categorySlug'] . "'>" . $cat['categoryName'] . "</a>";
-      // }
-      // echo implode(", ", $links);
+    // $stmt2 = $db->prepare('SELECT categoryName, categorySlug FROM category,cat_links WHERE category.categoryId=cat_links.categoryId AND cat_links.articleId=:articleId');
+    // $stmt2->execute(array(':articleId' => $row['articleId']));
+    // $catRow = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+    // $links = array();
+    // foreach ($catRow as $cat) {
+    //   $links[] = "<a href='./" . $cat['categorySlug'] . "'>" . $cat['categoryName'] . "</a>";
+    // }
+    // echo implode(", ", $links);
 
-      echo '</p>';
-      echo '<hr>';
-
+    echo '</p>';
+    echo '<hr>';
 
 
-      echo '<div> 
-      <img src="/blog/assets/img/'.$row['articleImage'] .'" alt="There is no image" width="300" height="300">
-      </div>';
 
-      echo '<p >' . $row['articleContent'] . '</p>';
+    echo '<div> 
+    <img src="/blog/assets/img/'.$row['articleImage'] .'" alt="There is no image" width="300" height="300">
+     </div>';
 
-      echo '</div>';
-    } else {
-      header('location:./register.php');
-    }
+    echo '<p >' . $row['articleContent'] . '</p>';
+
+    echo '</div>';
     ?>
 
 
@@ -97,7 +93,7 @@ if ($row['articleId'] == '') {
     ?>
 
   </div>
-  <!-- <?php include("sidebar.php"); ?> -->
+  <?php include("sidebar.php"); ?>
 </div>
 <?php include("footer.php"); ?>
 

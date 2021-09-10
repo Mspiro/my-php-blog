@@ -37,6 +37,10 @@ p {
   text-decoration: none;
 }
 
+.show{
+  display:none;
+}
+
 .sidebar a {
   display: block;
   color: black;
@@ -95,6 +99,9 @@ p {
   color: #fefefe;
 }
 
+  .logout-btn{
+    display: none;
+  }
 .adminbtn {
   padding-right: 20px;
   background: Green;

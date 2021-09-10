@@ -75,3 +75,7 @@ tr:nth-child(even) {
   text-decoration: none;
   color: #fefefe;
 }
+
+.logoutbtn{
+  float: right;
+}

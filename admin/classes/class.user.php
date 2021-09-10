@@ -1,6 +1,9 @@
 <?php 
 class User1{
     private $db;
+
+    // public $GLOBALS['loggedin'] = false;
+
     public function __constructor($db){
         $this->db=$db;
         
@@ -13,6 +16,6 @@ class User1{
     }
 
     public function logout(){
-        session_destroy();
+        session_destroy();  
     }
 }

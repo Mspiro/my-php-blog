@@ -79,10 +79,9 @@ if (isset($error)) {
                                                 } ?>">
     </p>
 
-
-
-
-    <button name="submit" class="subbtn" style="margin-top:50px;">Add User</button>
+    <button name="submit" class="subbtn" style="margin-top:50px;">Create Account</button>
+    <br>
+    <a href="./admin/login.php">Already have an account!</a>
 </form>
 <!-- </div> -->
 <?php include("footer.php"); ?>
