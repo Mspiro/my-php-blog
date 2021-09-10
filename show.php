@@ -1,6 +1,6 @@
 <?php include_once("includes/config.php");
 
-$stmt = $db->prepare('SELECT articleId,articleDescrip,articleTitle, articleSlug,  articleContent, articleDate FROM article WHERE articleSlug = :articleSlug');
+$stmt = $db->prepare('SELECT articleId,articleDescrip,articleTitle, articleSlug,  articleContent, articleDate, articleImage FROM article WHERE articleSlug = :articleSlug');
 $stmt->execute(array(':articleSlug' => $_GET['id']));
 $row = $stmt->fetch();
 
@@ -26,7 +26,7 @@ if ($row['articleId'] == '') {
     echo '<div>';
     echo '<h1>' . $row['articleTitle'] . '</h1>';
 
-    echo '<p>Posted on ' . date('jS M Y H:i:s', strtotime($row['articleDate'])) . ' in ';
+    echo '<p>Posted on ' . date('jS M Y H:i:s', strtotime($row['articleDate'])) ;
 
     // $stmt2 = $db->prepare('SELECT categoryName, categorySlug FROM category,cat_links WHERE category.categoryId=cat_links.categoryId AND cat_links.articleId=:articleId');
     // $stmt2->execute(array(':articleId' => $row['articleId']));
@@ -39,6 +39,12 @@ if ($row['articleId'] == '') {
 
     echo '</p>';
     echo '<hr>';
+
+
+
+    echo '<div> 
+    <img src="/blog/assets/img/'.$row['articleImage'] .'" alt="There is no image" width="300" height="300">
+     </div>';
 
     echo '<p >' . $row['articleContent'] . '</p>';
 
@@ -54,7 +60,7 @@ if ($row['articleId'] == '') {
 
     ?>
 
-    <p><strong>Share </strong></p>
+    <!-- <p><strong>Share </strong></p>
     <ul>
 
       <a target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo $baseUrl . $slug; ?>"> <img src="assets/icon/facebook.png" style="widht:50px; height:50px;"></a>
@@ -66,7 +72,7 @@ if ($row['articleId'] == '') {
 
       <a target="_blank" href="http://pinterest.com/pin/create/button/?url=<?php echo $baseUrl . $slug; ?>">
         <img src="assets/icon/pinterest.png" style="width:50px; height:50px;"></a>
-    </ul>
+    </ul> -->
 
     <h2> Recomended Posts:</h2>
     <?php

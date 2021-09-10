@@ -38,18 +38,18 @@ if (isset($_GET['delpost'])) {
     <table>
         <tr>
             <th>Article Title</th>
-            <th>Posted Date</th>
+            <th>Updated On</th>
             <th>Update</th>
             <th>Delete</th>
         </tr>
 
         <?php
         try {
-            $stmt = $db->query("SELECT articleId, articleTitle, articleDate FROM article where userid='" . $_SESSION['userid'] . "'  ORDER BY articleId DESC");
+            $stmt = $db->query("SELECT articleId, articleTitle, articleEditDate FROM article where userid='" . $_SESSION['userid'] . "'  ORDER BY articleId DESC");
             while ($row = $stmt->fetch()) {
                 echo '<tr>';
                 echo '<td>' . $row['articleTitle'] . '</td>';
-                echo '<td>' . date(' jS M Y', strtotime($row['articleDate'])) . '</td>';
+                echo '<td>' . date(' jS M Y', strtotime($row['articleEditDate'])) . '</td>';
         ?>
                 <td>
                     <button class="editbtn">

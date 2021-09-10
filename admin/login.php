@@ -56,7 +56,7 @@ if ($user->is_logged_in()) {
         <br>
 
         <label></label>
-        <input type="submit" name="submit" value="SignIn" />
+        <input type="submit" name="submit" value="Sign In" />
     </form>
     <h3 class="form"> <a href="send-mail.php">Forgot Passward?</a> </h3>
 </body>

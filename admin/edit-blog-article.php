@@ -24,35 +24,49 @@ if (!$user->is_logged_in()) {
 
     <?php
 
+    $fileName = '';
+    
     if (isset($_POST['submit'])) {
         extract($_POST);
-
+        
         if ($articleId == '') {
             $error[] = 'This post is missing a valid ID!.';
         }
-
+        
         if ($articleTitle == '') {
             $error[] = 'Please enter the title';
         }
-
+        
         if ($articleDescrip == '') {
             $error[] = 'Please enter the Description';
         }
-
+        
         if ($articleContent == '') {
             $error[] = 'Please enter the Content ';
         }
 
         if (!isset($error)) {
+        
+            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/blog/assets/img/";
+            $fileName = basename($_FILES["articleImage"]["name"]);
+            $fileNameNoExtension = preg_replace("/\.[^.]+$/", "", $fileName);
+            $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+            $fileName = md5(time()) . "." . $fileType;
+            $targetFilePath = $uploadDir . $fileName;
+            $fileTypes = array('jpg', 'png', 'jpeg');
+        
             try {
-                $stmt = $db->prepare('UPDATE article SET articleTitle=:articleTitle, articleSlug=:articleSlug, articleDescrip=:articleDescrip, articleContent=:articleContent, articleTags=:articleTags WHERE articleId=:articleId');
+                move_uploaded_file($_FILES["articleImage"]["tmp_name"], $targetFilePath);
+                $stmt = $db->prepare('UPDATE article SET articleTitle=:articleTitle, articleSlug=:articleSlug, articleDescrip=:articleDescrip, articleContent=:articleContent, articleEditDate=:articleEditDate, articleTags=:articleTags, articleImage=:articleImage  WHERE articleId=:articleId');
                 $stmt->execute(array(
+                    ':articleImage' =>$fileName,
                     ':articleTitle' => $articleTitle,
                     ':articleSlug' => $articleSlug,
                     ':articleDescrip' => $articleDescrip,
                     ':articleContent' => $articleContent,
                     ':articleId' => $articleId,
                     ':articleTags' => $articleTags,
+                    ':articleEditDate' => date('Y-m-d H:i:s'),
                 ));
 
                 $stmt = $db->prepare('DELETE FROM cat_links WHERE articleId = :articleId');
@@ -85,34 +99,38 @@ if (!$user->is_logged_in()) {
 
     try {
 
-        $stmt = $db->prepare('SELECT articleId,articleTitle, articleSlug, articleDescrip, articleContent, articleTags FROM article WHERE articleId = :articleId');
+        $stmt = $db->prepare('SELECT articleId,articleTitle, articleSlug, articleDescrip, articleContent, articleTags, articleImage FROM article WHERE articleId = :articleId');
         $stmt->execute(array(':articleId' => $_GET['id']));
         $row = $stmt->fetch();
+        $imageName = $row['articleImage'];
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
 
     ?>
-    <form action='' method='post'>
+    <form action='' method='post' enctype="multipart/form-data">
+        <!-- <?php echo $fileType ;?> -->
         <input type='hidden' name='articleId' value="<?php echo $row['articleId']; ?>">
 
         <h2><label>Article Title</label><br>
-            <input type='text' name='articleTitle' style="width:100%;height:40px" value="<?php echo $row['articleTitle']; ?>">
+            <input type='text' name='articleTitle' style="width:100%;height:40px" value="<?php echo $row['articleTitle']; ?>"required>
         </h2>
 
         <h2><label>Article Slug</label><br>
-            <input type='text' name='articleSlug' style="width:100%;height:40px" value="<?php echo $row['articleSlug']; ?>">
+            <input type='text' name='articleSlug' style="width:100%;height:40px" value="<?php echo $row['articleSlug']; ?>"required>
         </h2>
 
 
         <h2><label>Short Description(Meta Description) </label><br>
-            <textarea name='articleDescrip' cols='120' rows='6'><?php echo $row['articleDescrip']; ?></textarea>
+            <textarea name='articleDescrip' cols='120' rows='6' required><?php echo $row['articleDescrip']; ?></textarea>
         </h2>
 
         <h2><label>Long Description(Body Content)</label><br>
-            <textarea name='articleContent' id='textarea1' class='mceEditor' cols='120' rows='20'><?php echo $row['articleContent']; ?></textarea>
+            <textarea name='articleContent' id='textarea1' class='mceEditor' cols='120' rows='20' required><?php echo $row['articleContent']; ?></textarea>
         </h2>
-
+        <fieldset>
+                <input type="file" name="articleImage" required> 
+        </fieldset>
         <fieldset>
             <h2>
                 <legend>Categories</legend>
@@ -152,3 +170,6 @@ if (!$user->is_logged_in()) {
 </div>
 
 <?php include("footer.php");  ?>
+
+
+
