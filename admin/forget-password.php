@@ -5,7 +5,9 @@ require_once('classes/class.user.php');
 <head>
 <link rel="stylesheet" type="text/css" href="http://localhost/blog/assets/style.css">
     <link rel="stylesheet" type="text/css" href="http://localhost/blog/assets/css-min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 </head>
+<body>
 <div class="content">
     <h2>Edit User</h2>
     <?php
@@ -87,18 +89,47 @@ require_once('classes/class.user.php');
         </p>
 
         <p><label for="">Password</label><br>
-            <input type="text" name="password" value="">
+            <input type="password" name="password" value="" id="password" >
+            <i class="far fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
+
+
         </p>
 
         <p><label for="">Confirm Password</label><br>
-            <input type="text" name="passwordConfirm" value="">
+            <input type="password" name="passwordConfirm" value="" id="confirm_password" >
+            <i class="far fa-eye" id="togglePassword1" style="margin-left: -30px; cursor: pointer;"></i>
+
         </p>
 
         <p><label for="">Email</label><br>
-            <input type="text" name="email" value="<?php echo $row['email']; ?>">
+            <input type="email" name="email" value="<?php echo $row['email']; ?>">
         </p>
 
-        <p><input type="submit" name="submit" value="update"></p>
+        <p><input type="submit" name="submit" class="editbtn" value="update"></p>
     </form>
 
 </div>
+<script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const togglePassword1 = document.querySelector('#togglePassword1');
+        const password = document.querySelector('#password');
+        const confirmPassword = document.querySelector('#confirm_password');
+
+        togglePassword.addEventListener('click', function(e) {
+            // toggle the type attribute
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            // toggle the eye slash icon
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        togglePassword1.addEventListener('click', function(e) {
+            // toggle the type attribute
+            const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPassword.setAttribute('type', type);
+            // toggle the eye slash icon
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+
+    </body>

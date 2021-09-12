@@ -46,18 +46,12 @@ if (!$user->is_logged_in()) {
             $error[] = 'Please enter your content';
         }
 
-        // if(!in_array($fileType, $fileTypes)){
-        //     $error[] = 'Please choose image file with extension .jpeg, .jpg, .png';
-        //     echo '<script>alert("Please choose image file with extension .jpeg, .jpg, .png")</script>';
-        // }
-
+     
         if (!isset($error)) {
             $articleSlug = slug($articleTitle);
 
 
-            // if (in_array($fileType, $fileTypes)) {
-                // if (is_dir($uploadDir) && is_writable($uploadDir)) {
-                    // echo '<script>alert("He hotaye")</script>';
+          
                     try {
                         move_uploaded_file($_FILES["articleImage"]["tmp_name"], $targetFilePath);
                         $stmt = $db->prepare("INSERT INTO article(
@@ -91,8 +85,7 @@ if (!$user->is_logged_in()) {
                     } catch (PDOException $e) {
                         echo $e->getMessage();
                     }
-                // }
-            // }
+            
             if (isset($error)) {
                 foreach ($error as $error) {
                     echo '<p class="message">' . $error . '</p>';
@@ -104,7 +97,7 @@ if (!$user->is_logged_in()) {
 
     <form action="" method="post" enctype="multipart/form-data">
         <fieldset>
-            <!-- <?php echo $fileName ?> -->
+         
             <fieldset>
                 <h2><label>Article Title</label><br>
                     <input type="text" name="articleTitle" style="width:100%;height:40px" value="<?php if (isset($error)) {echo $_POST['articleTitle'];} ?>">
@@ -139,10 +132,8 @@ if (!$user->is_logged_in()) {
                             } else {
                             }
                         }
-
                         echo "<input type='checkbox' name='categoryId[]' value='" . $row2['categoryId'] . "' $checked> " . $row2['categoryName'] . "<br />";
                     }
-
                     ?>
                 </h2>
             </fieldset>

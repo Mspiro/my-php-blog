@@ -47,7 +47,7 @@ if (!$user->is_logged_in()) {
 
         if (!isset($error)) {
         
-            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/blog/assets/img/";
+            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/blog/assets/img/articleImages/";
             $fileName = basename($_FILES["articleImage"]["name"]);
             $fileNameNoExtension = preg_replace("/\.[^.]+$/", "", $fileName);
             $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
