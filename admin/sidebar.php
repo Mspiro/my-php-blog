@@ -20,7 +20,7 @@
       <a href="blog-categories.php">View Categories<hr> </a>
       <a href="add-blog-category.php">Add New Category <hr></a>
       <!-- <a href="add-blog-user.php">Add New Users  </a> -->
-      <a target="_blank" href="../">Visit Blog <hr></a>
+      <a href="../">Visit Blog <hr></a>
       <?php
       $sql = $db->query('select count(*) from article')->fetchColumn();
       echo '<h2> <span style="text-decoration: underline;">Total Posts: </span> ' . '<span class="text">' . $sql . '</span>' . '</h2>';

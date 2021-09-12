@@ -15,9 +15,7 @@
         <li><a href="index.php">Dashbord</a></li>
         <li><a href="blog-users.php">Profile</a></li>
         <li><a href="../">Visit Blog</a></li>
-        <li style="float: right;"><a href="logout.php">
-                <font color="red">Logout</font>
-            </a></li>
+        <li style="float: right;"><a href="logout.php" style="color: red;">Logout</a></li>
     </ul>
 </body>
 

@@ -17,6 +17,8 @@ if ($user->is_logged_in()) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
     <link rel="stylesheet" href="assets/style.css" class="css">
+    <link rel="stylesheet" href="../assets/style.css" class="css">
+    <link rel="stylesheet" href="../assets/css-min.css" class="css">
 </head>
 
 <body>
@@ -35,7 +37,7 @@ if ($user->is_logged_in()) {
                     // $GLOBALS['username'] = $result->username;
                     $_SESSION['username'] = $result->username;
                     $_SESSION['userid'] = $result->userid;
-                    header('location:index.php');
+                    header('location:blog-users.php');
                     exit;
                 } else {
                     echo "<p class='invalid'>Invalid Username or Password </p>";

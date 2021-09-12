@@ -43,7 +43,7 @@ $row = $stmt->fetch();
 
 
     echo '<div> 
-    <img src="/blog/assets/img/'.$row['articleImage'] .'" alt="There is no image" width="300" height="300">
+    <img src="/blog/assets/img/articleImages/'.$row['articleImage'] .'" alt="There is no image" width="300" height="300">
      </div>';
 
     echo '<p >' . $row['articleContent'] . '</p>';

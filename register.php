@@ -36,9 +36,12 @@ if (isset($_POST['submit'])) {
     if (!isset($error)) {
         // $password = md5($password);
         try {
-            $stmt = $db->prepare('INSERT INTO users(username,password,email,isAuther) VALUES(:username, :password, :email, :isAuther )');
+            $stmt = $db->prepare('INSERT INTO users(username,password,email) VALUES(:username, :password, :email )');
             $password = md5($password);
-            $stmt->execute(array(':username' => $username, ':password' => $password, ':email' => $email, 'isAuther' => $isAuther));
+            $stmt->execute(array(':username' => $username, ':password' => $password, ':email' => $email));
+
+            // $stmt1 = $db->prepare('INSERT INTO user_profile(userid,firstName,email) VALUES(:username,  :email )');
+            // $stmt1->execute(array(':username' => $username,':username' => $username,  ':email' => $email));
 
             header('location: blog-users.php?action=added');
             exit;

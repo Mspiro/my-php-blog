@@ -3,89 +3,180 @@ include('add-stuff.php');
 ?>
 <?php include("sidebar.php"); ?>
 <div class="content">
-    <h2>Add User</h2>
+    <h2>Edit My Profile</h2>
     <?php
-    $stmt = $db->query("SELECT userid, username FROM users where isAuther=0");
-    while ($row = $stmt->fetch())
-        if ($row['userid'] == $_SESSION['userid']) {
-            if (isset($_POST['submit'])) {
-                extract($_POST);
 
-                if ($username == '') {
-                    $error[] = 'Please enter the username ';
-                }
+$stmt1 = $db->query("SELECT * FROM user_profile where userid='" . $_SESSION['userid'] . "' ");
+$profile = $stmt1->fetch();
 
-                if ($password == '') {
-                    $error[] = 'Please enter the password ';
-                }
+$stmt = $db->query("SELECT * FROM users  where userid='" . $_SESSION['userid'] . "' ");
+$row = $stmt->fetch();
 
-                if ($passwordConfirm == '') {
-                    $error[] = 'Please enter the password again ';
-                }
+if (isset($_POST['submit'])) {
+    extract($_POST);
 
-                if ($password != $passwordConfirm) {
-                    $error[] = 'Password do not match ';
-                }
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/blog/assets/img/userProfilePicture/";
+        $fileName = basename($_FILES["displayProfile"]["name"]);
+        $fileNameNoExtension = preg_replace("/\.[^.]+$/", "", $fileName);
+        $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+        $fileName = md5(time()) . "." . $fileType;
+        $targetFilePath = $uploadDir . $fileName;
+        $fileTypes = array('jpg', 'png', 'jpeg');
 
-                if ($email == '') {
-                    $error[] = 'Please enter the email address ';
-                }
-
-                if (!isset($error)) {
-                    try {
-                        $stmt = $db->prepare('INSERT INTO users(username,password,email, isAuther) VALUES(:username, :password, :email, :isAuther)');
-                        $stmt->execute(array(':username' => $username, ':password' => $password, ':email' => $email, ':isAuther' => $isAuther));
-
-                        header('location: blog-users.php?action=added');
-                        exit;
-                    } catch (PDOException $e) {
-                        echo $e->getMessage();
-                    }
-                }
-            }
-        } else {
-            echo "<h2 style='color:red'>You are not admin</h2>";
-            exit;
+        if ($firstName == '') {
+            $error[] = 'Please enter the First Name ';
         }
+
+        if ($middleName == '') {
+            $error[] = 'Please enter the Middle Name ';
+        }
+
+        if ($lastName == '') {
+            $error[] = 'Please enter the Last name ';
+        }
+
+        if ($mobile == '') {
+            $error[] = 'Please enter your Mobile Number ';
+        }
+
+        if ($email == '') {
+            $error[] = 'Please enter the email address ';
+        }
+        if ($city == '') {
+            $error[] = 'Please enter the city';
+        }
+        if ($district == '') {
+            $error[] = 'Please enter the District';
+        }
+        if ($state == '') {
+            $error[] = 'Please enter the State';
+        }
+        if ($country == '') {
+            $error[] = 'Please enter the Country';
+        }
+
+        if (!isset($error)) {
+            try {
+                move_uploaded_file($_FILES["displayProfile"]["tmp_name"], $targetFilePath);
+                if (!isset($profile['userid'])) {
+                    $stmt = $db->prepare('INSERT INTO user_profile(userid,firstName, middleName,lastName, displayProfile, mobile, email, city, district, state, country) VALUES(:userid, :firstName, :middleName, :lastName, :displayProfile, :mobile, :email, :city, :district,:state, :country)');
+                    $stmt->execute(
+                        array(
+                            ':userid' => $userid,
+                            ':firstName' => $firstName,
+                            ':middleName' => $middleName,
+                            ':lastName' => $lastName,
+                            ':displayProfile' => $fileName,
+                            ':mobile' => $mobile,
+                            ':email' => $email,
+                            ':city' => $city,
+                            ':district' => $district,
+                            ':state' => $state,
+                            ':country' => $country
+                        )
+                    );
+                }else{
+                    $stmt = $db->prepare('UPDATE user_profile SET firstName=:firstName, middleName=:middleName,lastName=:lastName, displayProfile=:displayProfile, mobile=:mobile, email=:email, city=:city, district=:district, state=:state, country=:country WHERE userid=:userid');
+                    $stmt->execute(
+                        array(
+                            ':userid' => $userid,
+                            ':firstName' => $firstName,
+                            ':middleName' => $middleName,
+                            ':lastName' => $lastName,
+                            ':displayProfile' => $fileName,
+                            ':mobile' => $mobile,
+                            ':email' => $email,
+                            ':city' => $city,
+                            ':district' => $district,
+                            ':state' => $state,
+                            ':country' => $country
+                        )
+                    );
+                }
+                header('location: blog-users.php?action=added');
+                exit;
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
+        }
+    }
+
 
     if (isset($error)) {
         foreach ($error as $error) {
             echo '<p class="message">' . $error . '</p>';
         }
     }
+
+
+
     ?>
-    <form action="" method="post">
-        <p><label for="">Username</label><br>
-            <input type="text" name="username" value="<?php if (isset($error)) {
-                                                            echo $_POST['username'];
+
+
+    <form action="" method="post" enctype="multipart/form-data">
+
+        <input style="display:none" type="text" name="userid" value="<?php
+                                                                        echo $row['userid'];
+                                                                        ?>">
+
+        <input type="file" name="displayProfile" required>
+
+
+        <p><label for="">First Name:</label><br>
+            <input type="text" name="firstName" value="<?php if (isset($profile['firstName'])) {
+                                                            echo $profile['firstName'];
                                                         } ?>">
         </p>
 
-        <p><label for="">Password</label><br>
-            <input type="text" name="password" value="<?php if (isset($error)) {
-                                                            echo $_POST['password'];
+        <p><label for="">Middle Name:</label><br>
+            <input type="text" name="middleName" value="<?php if (isset($profile['middleName'])) {
+                                                            echo $profile['middleName'];
                                                         } ?>">
         </p>
 
-        <p><label for="">Confirm Password</label><br>
-            <input type="text" name="passwordConfirm" value="<?php if (isset($error)) {
-                                                                    echo $_POST['passwordConfirm'];
-                                                                } ?>">
+        <p><label for="">Last Name:</label><br>
+            <input type="text" name="lastName" value="<?php if (isset($profile['lastName'])) {
+                                                            echo $profile['lastName'];
+                                                        } ?>">
         </p>
 
-        <p><label for="">Email</label><br>
-            <input type="text" name="email" value="<?php if (isset($error)) {
-                                                        echo $_POST['email'];
+        <p><label for="">Mobile No:</label><br>
+            <input type="text" name="mobile" value="<?php if (isset($profile['mobile'])) {
+                                                        echo $profile['mobile'];
                                                     } ?>">
         </p>
 
-        <p><label for="">Is Auther</label><br>
-            <input type="checkbox" name="isAuther" value="<?php if (isset($error)) {
-                                                                echo $_POST['isAuther'];
-                                                            } ?>">
+        <p><label for="">Email:</label><br>
+            <input type="text" name="email" value="<?php
+                                                    echo $row['email'];
+                                                    ?>" readonly>
         </p>
 
-        <button name="submit" class="subbtn">Add User</button>
+        <p><label for="">City:</label><br>
+            <input type="text" name="city" value="<?php if (isset($profile['city'])) {
+                                                        echo $profile['city'];
+                                                    } ?>">
+        </p>
+
+        <p><label for="">District:</label><br>
+            <input type="text" name="district" value="<?php if (isset($profile['district'])) {
+                                                            echo $profile['district'];
+                                                        } ?>">
+        </p>
+
+        <p><label for="">State:</label><br>
+            <input type="text" name="state" value="<?php if (isset($profile['state'])) {
+                                                        echo $profile['state'];
+                                                    } ?>">
+        </p>
+
+        <p><label for="">Country:</label><br>
+            <input type="text" name="country" value="<?php if (isset($profile['country'])) {
+                                                            echo $profile['country'];
+                                                        } ?>">
+        </p>
+
+        <button name="submit" class="subbtn">Edit / Update Profile</button>
     </form>
 </div>
 
