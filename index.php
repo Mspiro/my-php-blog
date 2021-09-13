@@ -5,30 +5,34 @@
 <?php include("header.php"); ?>
 <body>
 
+    <div style="padding-bottom:30px; border-bottom: 2px solid black; margin:10px; margin-bottom:30px;">
+          <?php include('carousel.php');?>
+   </div>
     <div class="container">
-        <div style="border: 2px solid black; margin:20px 0;">
-       <?php include('carousel.php');?>
-       </div>
-        <div class="content">
+
+
+        <div>
             <?php
             try {
-                $stmt = $db->query('SELECT articleId, articleTitle, articleSlug, articleDescrip, articleDate, articleTags,userid FROM article ORDER BY articleId DESC');
+                $stmt = $db->query('SELECT articleId, articleTitle, articleSlug, articleDescrip, articleDate,articleEditDate, articleTags,userid FROM article ORDER BY articleId DESC');
 
                 while ($row = $stmt->fetch()) {
 
                     $auther = $db->query("SELECT username FROM users where userid='" . $row['userid'] . "'");
                     $autherName = $auther->fetch(PDO::FETCH_ASSOC);
                     echo '<div class="box">';
-                    echo '<h1><a href="' . $row['articleSlug'] . '" style="text-decoration:none;">' . $row['articleTitle'] . '</a></h1>';
-                    echo "<strong>Auther: </strong>" . $autherName['username'];
+                    echo '<h1 class="title"><a href="' . $row['articleSlug'] . '" style="text-decoration:none;">' . $row['articleTitle'] . '</a></h1>';
+                    echo '<hr>';
+                    echo "<strong>Author: </strong>" . $autherName['username'];
+
+                    echo ' <strong>Posted on: </strong>' . date('jS M Y ', strtotime($row['articleDate']));
+
+                    if(isset($row['articleEditDate'])){
+                        echo ' <strong>Updated on: </strong>' . date('jS M Y ', strtotime($row['articleEditDate']));
+                    }
 
                     echo '<hr>';
-                    //Display the date 
-
-                    echo '<p>Posted on ' . date('jS M Y ', strtotime($row['articleDate']));
-
-
-                    echo '</p>';
+               
                     echo '<p>' . $row['articleDescrip'] . '</p>';
                     echo '<p><button class="readbtn"><a href="' . $row['articleSlug'] . '">Read More</a></button></p>';
                     echo '</div>';

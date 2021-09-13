@@ -25,7 +25,7 @@ if (!$user->is_logged_in()) {
 
         extract($_POST);
 
-        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/blog/assets/img/";
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/blog/assets/img/articleImages/";
         $fileName = basename($_FILES["articleImage"]["name"]);
         $fileNameNoExtension = preg_replace("/\.[^.]+$/", "", $fileName);
         $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
@@ -105,7 +105,7 @@ if (!$user->is_logged_in()) {
             </fieldset>
             <fieldset>
                 <h2><label>Short Description(Meta Description) </label><br>
-                    <textarea type="text" name="articleDescrip" cols="120" rows="6"><?php if (isset($error)) {echo $_POST['articleDescrip'];} ?></textarea>
+                    <textarea type="text" name="articleDescrip" cols="100" rows="6"><?php if (isset($error)) {echo $_POST['articleDescrip'];} ?></textarea>
                 </h2>
             </fieldset>
             <fieldset>

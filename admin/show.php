@@ -1,6 +1,6 @@
 <?php include_once("../includes/config.php");
 
-$stmt = $db->prepare('SELECT articleId,articleDescrip,articleTitle, articleSlug,  articleContent, articleDate, articleImage FROM article WHERE articleSlug = :articleSlug');
+$stmt = $db->prepare('SELECT articleId,articleDescrip,articleTitle, articleSlug,  articleContent, articleDate,articleEditDate, articleImage FROM article WHERE articleSlug = :articleSlug');
 $stmt->execute(array(':articleSlug' => $_GET['id']));
 $row = $stmt->fetch();
 
@@ -25,8 +25,10 @@ $row = $stmt->fetch();
     <?php
     echo '<div>';
     echo '<h1>' . $row['articleTitle'] . '</h1>';
-
-    echo '<p>Posted on ' . date('jS M Y H:i:s', strtotime($row['articleDate'])) ;
+    echo '<strong>Posted on: </strong> ' . date('jS M Y', strtotime($row['articleDate'])) ;
+    if(isset($row['articleEditDate']) && !($row['articleDate']==$row['articleEditDate'])){
+      echo ' || <strong>Last Update: </strong>' . date('jS M Y ', strtotime($row['articleEditDate']));
+  }
 
     // $stmt2 = $db->prepare('SELECT categoryName, categorySlug FROM category,cat_links WHERE category.categoryId=cat_links.categoryId AND cat_links.articleId=:articleId');
     // $stmt2->execute(array(':articleId' => $row['articleId']));
@@ -37,13 +39,13 @@ $row = $stmt->fetch();
     // }
     // echo implode(", ", $links);
 
-    echo '</p>';
+    // echo '</p>';
     echo '<hr>';
 
 
 
-    echo '<div> 
-    <img src="/blog/assets/img/articleImages/'.$row['articleImage'] .'" alt="There is no image" width="300" height="300">
+    echo '<div class="center"> 
+    <img src="/blog/assets/img/articleImages/'.$row['articleImage'] .'" alt="There is no image" width="700" height="400">
      </div>';
 
     echo '<p >' . $row['articleContent'] . '</p>';
@@ -60,37 +62,26 @@ $row = $stmt->fetch();
 
     ?>
 
-    <!-- <p><strong>Share </strong></p>
-    <ul>
 
-      <a target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo $baseUrl . $slug; ?>"> <img src="assets/icon/facebook.png" style="widht:50px; height:50px;"></a>
-
-      <a target="_blank" href="http://twitter.com/share?text=Visit the link &url=<?php echo $baseUrl . $slug; ?>&hashtags=blog,technosmarter,programming,tutorials,codes,examples,language,development">
-        <img src="assets/icon/twitter.png" style="width:50px; height:50px;"></a>
-
-      <a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo $baseUrl . $slug; ?>"> <img src="assets/icon/linkedin.png" style="widht:50px; height:50px; "></a>
-
-      <a target="_blank" href="http://pinterest.com/pin/create/button/?url=<?php echo $baseUrl . $slug; ?>">
-        <img src="assets/icon/pinterest.png" style="width:50px; height:50px;"></a>
-    </ul> -->
-
+    <!-- <br><br><hr>
     <h2> Recomended Posts:</h2>
     <?php
     $recom = $db->query("SELECT * from article where articleId>$articleIdc order by articleId ASC limit 5");
 
     while ($row1 = $recom->fetch()) {
-      echo '<h2 ><a href="' . $row1['articleSlug'] . '" style="text-decoration:none;">' . $row1['articleTitle'] . '</a></h2>';
+      echo '<h2 ><a class="title2" href="' . $row1['articleSlug'] . '" style="text-decoration:none;">' . $row1['articleTitle'] . '</a></h2>';
     }
     ?>
+    <br><br><hr>
     <h2> Previous Posts:</h2>
     <?php
     $previous = $db->query("SELECT * from article where articleId<$articleIdc order by articleId DESC limit 5");
     while ($row1 = $previous->fetch()) {
-      echo '<h2><a href="' . $row1['articleSlug'] . '" style="text-decoration:none;">' . $row1['articleTitle'] . '</a></h2>';
+      echo '<h2 ><a class="title2" href="' . $row1['articleSlug'] . '" style="text-decoration:none;">' . $row1['articleTitle'] . '</a></h2>';
     }
 
 
-    ?>
+    ?> -->
 
   </div>
   <?php include("sidebar.php"); ?>

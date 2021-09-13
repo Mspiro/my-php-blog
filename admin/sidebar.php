@@ -5,11 +5,11 @@
 
 
     <div class="sidebar">
-      <h2>Quick Shorcut For:
+      <h2 style="padding-left: 10px;">Quick Shorcut For:
         <?php
         $auther = $db->query("SELECT username FROM users where userid='" . $_SESSION['userid'] . "'");
         $autherName = $auther->fetch(PDO::FETCH_ASSOC);
-        echo "<span style='color:#ECF87F'>" .strtoupper($autherName['username'])."</span>";
+        echo "<span style='color:#fff;'>" .strtoupper($autherName['username'])."</span>";
         ?> </h2>
 
       <a href="blog-users.php">Profile <hr> </a>
@@ -23,7 +23,7 @@
       <a href="../">Visit Blog <hr></a>
       <?php
       $sql = $db->query('select count(*) from article')->fetchColumn();
-      echo '<h2> <span style="text-decoration: underline;">Total Posts: </span> ' . '<span class="text">' . $sql . '</span>' . '</h2>';
+      echo '<h2 style="padding: 0 65px;"> <span style="text-decoration: underline;">Total Posts: </span> ' . '<span class="text">' . $sql . '</span>' . '</h2>';
       ?>
 
 

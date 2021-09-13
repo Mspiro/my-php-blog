@@ -17,6 +17,8 @@ if (!$user->is_logged_in()) {
 </script>
 <?php include("header.php"); ?>
 
+<?php include("sidebar.php"); ?>
+
 
 <div class="content">
 
@@ -25,28 +27,28 @@ if (!$user->is_logged_in()) {
     <?php
 
     $fileName = '';
-    
+
     if (isset($_POST['submit'])) {
         extract($_POST);
-        
+
         if ($articleId == '') {
             $error[] = 'This post is missing a valid ID!.';
         }
-        
+
         if ($articleTitle == '') {
             $error[] = 'Please enter the title';
         }
-        
+
         if ($articleDescrip == '') {
             $error[] = 'Please enter the Description';
         }
-        
+
         if ($articleContent == '') {
             $error[] = 'Please enter the Content ';
         }
 
         if (!isset($error)) {
-        
+
             $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/blog/assets/img/articleImages/";
             $fileName = basename($_FILES["articleImage"]["name"]);
             $fileNameNoExtension = preg_replace("/\.[^.]+$/", "", $fileName);
@@ -54,12 +56,12 @@ if (!$user->is_logged_in()) {
             $fileName = md5(time()) . "." . $fileType;
             $targetFilePath = $uploadDir . $fileName;
             $fileTypes = array('jpg', 'png', 'jpeg');
-        
+
             try {
                 move_uploaded_file($_FILES["articleImage"]["tmp_name"], $targetFilePath);
                 $stmt = $db->prepare('UPDATE article SET articleTitle=:articleTitle, articleSlug=:articleSlug, articleDescrip=:articleDescrip, articleContent=:articleContent, articleEditDate=:articleEditDate, articleTags=:articleTags, articleImage=:articleImage  WHERE articleId=:articleId');
                 $stmt->execute(array(
-                    ':articleImage' =>$fileName,
+                    ':articleImage' => $fileName,
                     ':articleTitle' => $articleTitle,
                     ':articleSlug' => $articleSlug,
                     ':articleDescrip' => $articleDescrip,
@@ -109,67 +111,68 @@ if (!$user->is_logged_in()) {
 
     ?>
     <form action='' method='post' enctype="multipart/form-data">
-        <!-- <?php echo $fileType ;?> -->
+        <!-- <?php echo $fileType; ?> -->
         <input type='hidden' name='articleId' value="<?php echo $row['articleId']; ?>">
-
-        <h2><label>Article Title</label><br>
-            <input type='text' name='articleTitle' style="width:100%;height:40px" value="<?php echo $row['articleTitle']; ?>"required>
-        </h2>
-
-        <h2><label>Article Slug</label><br>
-            <input type='text' name='articleSlug' style="width:100%;height:40px" value="<?php echo $row['articleSlug']; ?>"required>
-        </h2>
-
-
-        <h2><label>Short Description(Meta Description) </label><br>
-            <textarea name='articleDescrip' cols='120' rows='6' required><?php echo $row['articleDescrip']; ?></textarea>
-        </h2>
-
-        <h2><label>Long Description(Body Content)</label><br>
-            <textarea name='articleContent' id='textarea1' class='mceEditor' cols='120' rows='20' required><?php echo $row['articleContent']; ?></textarea>
-        </h2>
         <fieldset>
-                <input type="file" name="articleImage" required> 
-        </fieldset>
-        <fieldset>
-            <h2>
-                <legend>Categories</legend>
+            <fieldset>
+                <h2><label>Article Title</label><br>
+                    <input type='text' name='articleTitle' style="width:100%;height:40px" value="<?php echo $row['articleTitle']; ?>" required>
+                </h2>
+            </fieldset>
+            <fieldset>
+                <h2><label>Article Slug</label><br>
+                    <input type='text' name='articleSlug' style="width:100%;height:40px" value="<?php echo $row['articleSlug']; ?>" required>
+                </h2>
+            </fieldset>
+            <fieldset>
+                <h2><label>Short Description(Meta Description) </label><br>
+                    <textarea name='articleDescrip' cols='117' rows='3' required><?php echo $row['articleDescrip']; ?></textarea>
+                </h2>
+            </fieldset>
+            <fieldset>
+                <h2><label>Long Description(Body Content)</label><br>
+                    <textarea name='articleContent' id='textarea1' class='mceEditor' cols='120' rows='30' required><?php echo $row['articleContent']; ?></textarea>
+                </h2>
+            </fieldset>
+            <fieldset>
+                <input type="file" name="articleImage" required>
+            </fieldset>
+            <fieldset>
+                <h2>
+                    <legend>Categories</legend>
 
-                <?php
-                $checked = null;
-                $stmt2 = $db->query('SELECT categoryId, categoryName FROM category ORDER BY categoryName');
-                while ($row2 = $stmt2->fetch()) {
+                    <?php
+                    $checked = null;
+                    $stmt2 = $db->query('SELECT categoryId, categoryName FROM category ORDER BY categoryName');
+                    while ($row2 = $stmt2->fetch()) {
 
-                    $stmt3 = $db->prepare('SELECT categoryId FROM cat_links WHERE categoryId = :categoryId AND articleId = :articleId');
-                    $stmt3->execute(array(':categoryId' => $row2['categoryId'], ':articleId' => $row['articleId']));
-                    $row3 = $stmt3->fetch();
+                        $stmt3 = $db->prepare('SELECT categoryId FROM cat_links WHERE categoryId = :categoryId AND articleId = :articleId');
+                        $stmt3->execute(array(':categoryId' => $row2['categoryId'], ':articleId' => $row['articleId']));
+                        $row3 = $stmt3->fetch();
 
-                    if (isset($row3['categoryId']) == $row2['categoryId']) {
-                        $checked = 'checked=checked';
-                    } else {
-                        $checked = null;
+                        if (isset($row3['categoryId']) == $row2['categoryId']) {
+                            $checked = 'checked=checked';
+                        } else {
+                            $checked = null;
+                        }
+
+                        echo "<input type='checkbox' name='categoryId[]' value='" . $row2['categoryId'] . "' $checked> " . $row2['categoryName'] . "<br />";
                     }
 
-                    echo "<input type='checkbox' name='categoryId[]' value='" . $row2['categoryId'] . "' $checked> " . $row2['categoryName'] . "<br />";
-                }
+                    ?>
+                </h2>
+            </fieldset>
 
-                ?>
+            <h2><label>Articles Tags (Seprated by comma without space)</label><br>
+                <input type='text' name='articleTags' style="width:100%;height:40px;" value='<?php echo $row['articleTags']; ?>'>
+                <br>
             </h2>
+
+
+            <button name='submit' class="subbtn"> Update</button>
         </fieldset>
-
-        <h2><label>Articles Tags (Seprated by comma without space)</label><br>
-            <input type='text' name='articleTags' style="width:100%;height:40px;" value='<?php echo $row['articleTags']; ?>'>
-            <br>
-        </h2>
-
-
-        <button name='submit' class="subbtn"> Update</button>
-
     </form>
 
 </div>
 
 <?php include("footer.php");  ?>
-
-
-

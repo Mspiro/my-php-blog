@@ -6,7 +6,7 @@
 body {
   margin: 0;
   font-family: "Lato", sans-serif;
-  background-color: #cccccc;
+  background-color: white;
 }
 h1 {
   color: black;
@@ -17,15 +17,73 @@ p {
 }
 
 .container {
-  background-color: #cccccc;
+  background-color: white;
   width: 100%;
-  margin: 0 auto;
+  margin: 0 20px;
   overflow: hidden;
 }
 
-.box:hover {
-  background: linear-gradient(to left, #aaa6a6, #cccccc);
+.center{
+  display: flex;
+  /* flex-direction:column; */
+  justify-content: center;
 }
+
+.title{
+  display: block;
+  position: relative;
+  color: #0d0f0f;
+}
+
+.title:after{
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  background-color: #0087ca;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+.title:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.title2{
+  display: block;
+  position: relative;
+  color: #1838e9;
+}
+
+.title2:after{
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  
+  background-color: #0087ca;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+.title2:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+
+.box{
+  width: 100vw;
+  margin: 10px 0 30px 0 ;
+  border-bottom: 3px solid black;
+
+}
+
 .content {
   padding: 10px 100px;
   width: 60%;
