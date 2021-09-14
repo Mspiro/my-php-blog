@@ -8,7 +8,7 @@ if (!$user->is_logged_in()) {
 
 ?>
 <?php include("head.php");  ?>
-<title>Categories- Blog</title>
+<title>User Roles- Blog</title>
 <script language="JavaScript" type="text/javascript">
     function delcat(id, title) {
         if (confirm("Are you sure you want to delete '" + title + "'")) {
@@ -21,7 +21,7 @@ if (!$user->is_logged_in()) {
 <div class="content">
     <?php
     if (isset($_GET['action'])) {
-        echo '<h3>Category ' . $_GET['action'] . '.</h3>';
+        echo '<h3>Role ' . $_GET['action'] . '.</h3>';
     }
     ?>
 
@@ -33,11 +33,11 @@ if (!$user->is_logged_in()) {
         <?php
         try {
 
-            $stmt = $db->query('SELECT categoryId, categoryName, categorySlug FROM category ORDER BY categoryName DESC');
+            $stmt = $db->query('SELECT * FROM role ORDER BY role DESC');
             while ($row = $stmt->fetch()) {
 
                 echo '<tr>';
-                echo '<td>' . $row['categoryName'] . '</td>';
+                echo '<td>' . $row['role'] . '</td>';
         ?>
 
                 <td>
@@ -54,7 +54,7 @@ if (!$user->is_logged_in()) {
         ?>
     </table>
 
-    <p><button class="editbtn"><a href='add-blog-category.php'>Add New Category</a></button></p>
+    <p><button class="editbtn"><a href='add-user-role.php'>Add New Role</a></button></p>
 </div>
 <?php include("sidebar.php");  ?>
 <?php include("footer.php");  ?>

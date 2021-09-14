@@ -24,8 +24,8 @@ include("head.php");
         $stmt1 = $db->query("SELECT * FROM users where userid='" . $_SESSION['userid'] . "' ");
         while ($row = $stmt1->fetch()) {
             if(isset($profile['userid'])){
-            echo '<div> 
-            <img src="/blog/assets/img/userProfilePicture/'.$profile['displayProfile'] .'" alt="There is no image" width="100" height="100">
+            echo '<div> <h1>My Profile: </h1>
+            <img style="margin-left:180px;" src="/blog/assets/img/userProfilePicture/'.$profile['displayProfile'] .'" alt="There is no image" width="100" height="100">
              </div> 
              
              <h1> Name: '.$profile['firstName'].' '.$profile['middleName'].' '.$profile['lastName'].' </h1>

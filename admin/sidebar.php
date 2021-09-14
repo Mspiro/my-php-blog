@@ -9,18 +9,43 @@
         <?php
         $auther = $db->query("SELECT username FROM users where userid='" . $_SESSION['userid'] . "'");
         $autherName = $auther->fetch(PDO::FETCH_ASSOC);
-        echo "<span style='color:#fff;'>" .strtoupper($autherName['username'])."</span>";
+        echo "<span style='color:#fff;'>" . strtoupper($autherName['username']) . "</span>";
         ?> </h2>
 
-      <a href="blog-users.php">Profile <hr> </a>
+      <a href="blog-users.php">Profile
+        <hr>
+      </a>
       <!-- <hr> -->
-      <a href="index.php">My Articles<hr> </a>
-      
-      <a href="add-blog-article.php">Add New Blog Post <hr></a>
-      <a href="blog-categories.php">View Categories<hr> </a>
-      <a href="add-blog-category.php">Add New Category <hr></a>
-      <!-- <a href="add-blog-user.php">Add New Users  </a> -->
-      <a href="../">Visit Blog <hr></a>
+      <a href="index.php">My Articles
+        <hr>
+      </a>
+
+      <a href="add-blog-article.php">Add New Blog Post
+        <hr>
+      </a>
+      <a href="blog-categories.php">View Categories
+        <hr>
+      </a>
+      <a href="add-blog-category.php">Add New Category
+        <hr>
+      </a>
+      <?php
+      $isAdmin = $db->query("SELECT * FROM users where userid='" . $_SESSION['userid'] . "'");
+      $isAdmin = $isAdmin->fetch();
+      if ($isAdmin['roleid'] == 1) {
+        echo '
+          <a href="add-user-role.php">Add New Role <hr></a>
+          <a href="role-list.php">View Roles <hr> </a>
+          <a href="users.php">View Users <hr> </a>
+          ';
+      }
+
+      ?>
+
+      <a href="../">Visit Blog
+        <hr>
+      </a>
+
       <?php
       $sql = $db->query('select count(*) from article')->fetchColumn();
       echo '<h2 style="padding: 0 65px;"> <span style="text-decoration: underline;">Total Posts: </span> ' . '<span class="text">' . $sql . '</span>' . '</h2>';

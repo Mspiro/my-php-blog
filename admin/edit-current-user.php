@@ -6,14 +6,14 @@ include('add-stuff.php');
     <h2>Edit My Profile</h2>
     <?php
 
-$stmt1 = $db->query("SELECT * FROM user_profile where userid='" . $_SESSION['userid'] . "' ");
-$profile = $stmt1->fetch();
+    $stmt1 = $db->query("SELECT * FROM user_profile where userid='" . $_GET['id'] . "' ");
+    $profile = $stmt1->fetch();
 
-$stmt = $db->query("SELECT * FROM users  where userid='" . $_SESSION['userid'] . "' ");
-$row = $stmt->fetch();
+    $stmt = $db->query("SELECT * FROM users where userid='" . $profile['userid'] . "' ");
+    $row = $stmt->fetch();
 
-if (isset($_POST['submit'])) {
-    extract($_POST);
+    if (isset($_POST['submit'])) {
+        extract($_POST);
 
         $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/blog/assets/img/userProfilePicture/";
         $fileName = basename($_FILES["displayProfile"]["name"]);
@@ -75,7 +75,7 @@ if (isset($_POST['submit'])) {
                             ':country' => $country
                         )
                     );
-                }else{
+                } else {
                     $stmt = $db->prepare('UPDATE user_profile SET firstName=:firstName, middleName=:middleName,lastName=:lastName, displayProfile=:displayProfile, mobile=:mobile, email=:email, city=:city, district=:district, state=:state, country=:country WHERE userid=:userid');
                     $stmt->execute(
                         array(
@@ -94,18 +94,19 @@ if (isset($_POST['submit'])) {
                     );
                 }
 
-
                 $stmt2 = $db->query("SELECT * FROM user_profile where userid='" . $row['userid'] . "'");
                 $stmt2 = $stmt2->fetch();
 
-                $stmt3 = $db->prepare('UPDATE users SET profileid=:profileid WHERE userid=:userid');
+                $stmt3 = $db->prepare('UPDATE users SET profileid=:profileid, roleid=:roleid WHERE userid=:userid');
                 $stmt3->execute(
                     array(
                         ':profileid' => $stmt2['profileid'],
-                        ':userid'=> $stmt2['userid'],
+                        ':userid' => $stmt2['userid'],
+                        ':roleid' => $_POST['role'],
                     )
                 );
-                header('location: blog-users.php?action=added');
+
+                header('location:users.php?action=added');
                 exit;
             } catch (PDOException $e) {
                 echo $e->getMessage();
@@ -120,10 +121,7 @@ if (isset($_POST['submit'])) {
         }
     }
 
-
-
     ?>
-
 
     <form action="" method="post" enctype="multipart/form-data">
 
@@ -186,6 +184,29 @@ if (isset($_POST['submit'])) {
             <input type="text" name="country" value="<?php if (isset($profile['country'])) {
                                                             echo $profile['country'];
                                                         } ?>">
+        </p>
+
+        <?php
+        $role = $db->query("SELECT * FROM role where roleid='" . $row['roleid'] . "'")->fetch();
+
+        echo '<p><label for="">Assign Role: ( '.$role['role'].' )</label><br><br> ';
+        ?>
+
+
+            <?php
+
+            $roles = $db->query("SELECT * FROM role")->fetchAll();
+
+            $i = 1;
+
+            foreach ($roles as $role) {
+                echo $i . ') <label for="role">' . $role['role'];
+                // echo $role['roleid'];
+                echo ' <input type="radio" name="role" value="' . $role['roleid'] . '">&nbsp;&nbsp;&nbsp;&nbsp; ';
+                $i++;
+            }
+            ?>
+
         </p>
 
         <button name="submit" class="subbtn">Edit / Update Profile</button>
