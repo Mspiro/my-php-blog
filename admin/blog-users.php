@@ -14,38 +14,36 @@ include("head.php");
 <div class="content">
     <?php
 
-
-
     try {
 
         $stmt = $db->query("SELECT * FROM user_profile where userid='" . $_SESSION['userid'] . "' ");
         $profile = $stmt->fetch();
-
         $stmt1 = $db->query("SELECT * FROM users where userid='" . $_SESSION['userid'] . "' ");
         while ($row = $stmt1->fetch()) {
-            if(isset($profile['userid'])){
-            echo '<div> <h1>My Profile: </h1>
-            <img style="margin-left:180px;" src="/blog/assets/img/userProfilePicture/'.$profile['displayProfile'] .'" alt="There is no image" width="100" height="100">
+            if (isset($profile['userid'])) {
+                $role = $db->query("SELECT * FROM role where roleid='" . $row['roleid'] . "' ")->fetch();
+                echo '<div> <h1>My Profile: (' . $role['role'] . ')</h1>
+            <img style="margin-left:180px;" src="/blog/assets/img/userProfilePicture/' . $profile['displayProfile'] . '" alt="There is no image" width="100" height="100">
              </div> 
              
-             <h1> Name: '.$profile['firstName'].' '.$profile['middleName'].' '.$profile['lastName'].' </h1>
+             <h1> Name: ' . $profile['firstName'] . ' ' . $profile['middleName'] . ' ' . $profile['lastName'] . ' </h1>
              <h3>
-                Mobile No:- '.$profile['mobile'].' <br>
-                Email:- '.$profile['email'].' <br>
-                Address:- '.$profile['city'].', '.$profile['district'].', '.$profile['state'].' , '.$profile['country'].' <br>
+                Mobile No:- ' . $profile['mobile'] . ' <br>
+                Email:- ' . $profile['email'] . ' <br>
+                Address:- ' . $profile['city'] . ', ' . $profile['district'] . ', ' . $profile['state'] . ' , ' . $profile['country'] . ' <br>
                 
              </h3> 
              ';
-            }else{
+            } else {
                 echo "<h1>You have to update your profile! Please check button down below </h1> ";
             }
         }
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
-?>
+    ?>
 
-<p><button class="editbtn"><a href="add-blog-user.php">Edit My Profile</a></button></p>
+    <p><button class="editbtn"><a href="add-blog-user.php">Edit My Profile</a></button></p>
 </div>
 
 

@@ -2,29 +2,16 @@
 
 require_once('../includes/config.php');
 require_once('classes/class.user.php');
+require_once('classes/Article.php');
+
 if (!$user->is_logged_in()) {
     header('location: login.php');
-}
-
-if (isset($_GET['delpost'])) {
-    $stmt = $db->prepare('DELETE from article where articleId=:articleId');
-    $stmt->execute(array(':articleId' => $_GET['delpost']));
-    header('location:index.php?action=deleted');
-    exit;
 }
 ?>
 
 <?php include("head.php"); ?>
 
 <title>Admin Page</title>
-
-<script type="text/javascript">
-    function delpost(id, title) {
-        if (confirm("Are you sure want to delete '" + title + "'")) {
-            window.location.href = 'index.php?delpost=' + id;
-        }
-    }
-</script>
 <?php include("header.php"); ?>
 
 <?php include("sidebar.php"); ?>
@@ -46,20 +33,23 @@ if (isset($_GET['delpost'])) {
 
         <?php
         try {
-            $stmt = $db->query("SELECT articleId, articleTitle, articleEditDate, articleSlug FROM article where userid='" . $_SESSION['userid'] . "'  ORDER BY articleId DESC");
-            while ($row = $stmt->fetch()) {
+            $id = $_SESSION['userid'];
+            $rows = $Article->showArticleUserId($id);
+            
+            foreach ($rows as $row) {
                 echo '<tr>';
-                // echo '<td><a href="' . $row['articleSlug'] . '" style="text-decoration:none;">' . $row['articleTitle'] . '</a></td>';
-                echo '<td> <a href="show.php?id='.$row['articleSlug'].'">' . $row['articleTitle'] . '</a></td>';
+                echo '<td > <a style="text-decoration: none;
+                color: blue;"  href="show.php?id='.$row['articleSlug'].'">' . $row['articleTitle'] . '</a></td>';
                 echo '<td>' . date(' jS M Y', strtotime($row['articleEditDate'])) . '</td>';
         ?>
                 <td>
                     <button class="editbtn">
-                        <a href="edit-blog-article.php?id=<?php echo $row['articleId']; ?>">Edit</a>
+                        <a href="edit-article.php?id=<?php echo $row['articleId']; ?>">Edit</a>
                     </button>
                 </td>   
                 <td>
-                    <button class="delbtn"><a href="del-blog-post.php?id=<?php echo $row['articleId']; ?>">Delete</a></button>
+                    <button class="delbtn"><a href="del-confirm.php?id=<?php echo $row['articleId']; ?>">Delete</a></button>
+                   
                 </td>
 
         <?php
@@ -71,7 +61,7 @@ if (isset($_GET['delpost'])) {
 
         ?>
     </table>
-    <p><button class="editbtn"><a href="add-blog-article.php">Add New Article</a></button></p>
+    <p><button class="editbtn"><a href="add-article.php">Add New Article</a></button></p>
 </div>
 
 

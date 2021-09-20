@@ -16,22 +16,25 @@
         <hr>
       </a>
       <!-- <hr> -->
-      <a href="index.php">My Articles
-        <hr>
-      </a>
 
-      <a href="add-blog-article.php">Add New Blog Post
-        <hr>
-      </a>
-      <a href="blog-categories.php">View Categories
-        <hr>
-      </a>
-      <a href="add-blog-category.php">Add New Category
-        <hr>
-      </a>
+      <?php 
+       $isAdmin = $db->query("SELECT * FROM users where userid='" . $_SESSION['userid'] . "'");
+       $isAdmin = $isAdmin->fetch();
+
+       if ($isAdmin['roleid'] == 2 || $isAdmin['roleid'] == 1 ) {
+        echo '
+          <a href="index.php">My Articles <hr></a>
+          <a href="add-article.php">Add New Post <hr> </a>
+          <a href="blog-categories.php">Existing Categories <hr> </a>
+          <a href="add-blog-category.php">Add New Category <hr> </a>
+          ';
+      }
+
+      ?>
+      
       <?php
-      $isAdmin = $db->query("SELECT * FROM users where userid='" . $_SESSION['userid'] . "'");
-      $isAdmin = $isAdmin->fetch();
+      // $isAdmin = $db->query("SELECT * FROM users where userid='" . $_SESSION['userid'] . "'");
+      // $isAdmin = $isAdmin->fetch();
       if ($isAdmin['roleid'] == 1) {
         echo '
           <a href="add-user-role.php">Add New Role <hr></a>

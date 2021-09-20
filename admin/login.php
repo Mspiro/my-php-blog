@@ -32,10 +32,7 @@ if ($user->is_logged_in()) {
                 $password = md5($password);
                 $result = $db->query("SELECT username, password,userid FROM users WHERE username='" . $username . "' and password='" . $password . "'")->fetch(PDO::FETCH_OBJ);
                 if ($result->username == $username and $result->password == $password) {
-                    session_start();
                     $_SESSION['loggedin'] = true;
-                    // $GLOBALS['loggedin'] = true;
-                    // $GLOBALS['username'] = $result->username;
                     $_SESSION['username'] = $result->username;
                     $_SESSION['userid'] = $result->userid;
                     header('location:blog-users.php');
@@ -44,7 +41,7 @@ if ($user->is_logged_in()) {
                     echo "<p class='invalid'>Invalid Username or Password </p>";
                 }
             } catch (PDOException $e) {
-                echo $e->getMessage();
+                // echo $e->getMessage();
             }
         } else {
             echo "<p class='invalid'>Please enter all credentials </p>";

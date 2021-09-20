@@ -36,15 +36,10 @@
         }
 
         if (!isset($error)) {
-            // $password = md5($password);
             try {
-                $stmt = $db->prepare('INSERT INTO users(username,password,email) VALUES(:username, :password, :email )');
+                $stmt = $db->prepare('INSERT INTO users(username,password,email, roleid) VALUES(:username, :password, :email, :roleid )');
                 $password = md5($password);
-                $stmt->execute(array(':username' => $username, ':password' => $password, ':email' => $email));
-
-                // $stmt1 = $db->prepare('INSERT INTO user_profile(userid,firstName,email) VALUES(:username,  :email )');
-                // $stmt1->execute(array(':username' => $username,':username' => $username,  ':email' => $email));
-
+                $stmt->execute(array(':username' => $username, ':password' => $password, ':email' => $email, ':roleid'=>3));
                 header('location: blog-users.php?action=added');
                 exit;
             } catch (PDOException $e) {

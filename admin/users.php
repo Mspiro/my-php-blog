@@ -2,29 +2,24 @@
 
 require_once('../includes/config.php');
 require_once('classes/class.user.php');
+require_once('classes/UserDB.php');
+
 if (!$user->is_logged_in()) {
     header('location: login.php');
 }
 
-if (isset($_GET['delpost'])) {
-    $stmt = $db->prepare('DELETE from article where articleId=:articleId');
-    $stmt->execute(array(':articleId' => $_GET['delpost']));
-    header('location:index.php?action=deleted');
-    exit;
-}
+// if (isset($_GET['delpost'])) {
+//     $stmt = $db->prepare('DELETE from article where articleId=:articleId');
+//     $stmt->execute(array(':articleId' => $_GET['delpost']));
+//     header('location:index.php?action=deleted');
+//     exit;
+// }
 ?>
 
 <?php include("head.php"); ?>
 
 <title>Admin Page</title>
 
-<script type="text/javascript">
-    function delpost(id, title) {
-        if (confirm("Are you sure want to delete '" + title + "'")) {
-            window.location.href = 'index.php?delpost=' + id;
-        }
-    }
-</script>
 <?php include("header.php"); ?>
 
 <?php include("sidebar.php"); ?>
@@ -47,12 +42,12 @@ if (isset($_GET['delpost'])) {
 
         <?php
         try {
-            $stmt = $db->query("SELECT * FROM users where userid!='" . $_SESSION['userid'] . "'")->fetchAll();;
-            // $stmt = $db->query("SELECT * FROM users where userid=30")->fetchAll();
+            $id=$_SESSION['userid'];
 
+            $stmt = $UserDB->selectUserById($id);
+           
             foreach ($stmt as $row) {
 
-                // while ($row = $stmt->fetch()) {
                 echo '<tr>';
                 echo '<td> <a href="view-blog-user.php?id=' . $row['profileid'] . '">' . $row['username'] . '</a></td>';
 
@@ -67,7 +62,6 @@ if (isset($_GET['delpost'])) {
                     echo '<td>' . $role['role'] . '</td>';
                 } catch (PDOException $e) {
                     echo '<td>NO Role Assign</td>';
-                    // echo $e->getMessage();
             }
 
         ?>

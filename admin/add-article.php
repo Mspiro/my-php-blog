@@ -1,6 +1,8 @@
 <?php
 require_once('../includes/config.php');
 require_once('classes/class.user.php');
+require_once('classes/Article.php');
+
 
 if (!$user->is_logged_in()) {
     header('location:login.php');
@@ -48,38 +50,10 @@ if (!$user->is_logged_in()) {
 
      
         if (!isset($error)) {
-            $articleSlug = slug($articleTitle);
-
-
-          
                     try {
                         move_uploaded_file($_FILES["articleImage"]["tmp_name"], $targetFilePath);
-                        $stmt = $db->prepare("INSERT INTO article(
-                        articleTitle, articleSlug, articleDescrip, articleContent, articleDate, articleEditDate, articleTags,userid,articleImage
-                    ) VALUES(:articleTitle, :articleSlug, :articleDescrip, :articleContent, :articleDate, :articleEditDate,:articleTags, :userid, :articleImage)");
-                        $stmt->execute(array(
-                            ':articleTitle' => $articleTitle,
-                            ':articleSlug' => $articleSlug,
-                            ':articleDescrip' => $articleDescrip,
-                            ':articleContent' => $articleContent,
-                            ':articleTags' => $articleTags,
-                            ':userid' => $_SESSION['userid'],
-                            ':articleDate' => date('Y-m-d H:i:s'),
-                            ':articleEditDate' => date('Y-m-d H:i:s'),
-                            ':articleImage' => $fileName,
-                        ));
 
-                        $articleId = $db->lastInsertId();
-                        if (is_array($categoryId)) {
-                            foreach ($_POST['categoryId'] as $categoryId) {
-                                $stmt = $db->prepare('INSERT INTO cat_links (articleId,categoryId)VALUES(:articleId,:categoryId)');
-                                $stmt->execute(array(
-                                    ':articleId' => $articleId,
-                                    ':categoryId' => $categoryId
-                                ));
-                            }
-                        }
-
+                        $Article->createArticle($fileName);
                         header("location: index.php?action=added");
                         exit;
                     } catch (PDOException $e) {
@@ -117,27 +91,6 @@ if (!$user->is_logged_in()) {
                 <input type="file" name="articleImage"  required>
             </fieldset>
             <fieldset>
-                <h2>
-                    <legend>Categories</legend>
-                    <?php
-                    $checked = null;
-                    $stmt2 = $db->query('SELECT categoryId, categoryName FROM category ORDER BY categoryName');
-
-                    while ($row2 = $stmt2->fetch()) {
-
-                        if (isset($_POST['categoryId'])) {
-
-                            if (in_array($row2['categoryId'], $_POST['categoryId'])) {
-                                $checked = "checked='checked'";
-                            } else {
-                            }
-                        }
-                        echo "<input type='checkbox' name='categoryId[]' value='" . $row2['categoryId'] . "' $checked> " . $row2['categoryName'] . "<br />";
-                    }
-                    ?>
-                </h2>
-            </fieldset>
-            <fieldset>
                 <h2><label>Articles Tags (Separated by comma without space)</label><br>
                     <input type='text' name='articleTags' value='<?php if (isset($error)) {
                                                                         echo $_POST['articleTags'];
@@ -147,7 +100,7 @@ if (!$user->is_logged_in()) {
 
             <button name="submit" class="subbtn">Submit</button>
         </fieldset>
-    </form>
+    </form> 
 </div>
 
 <?php include("footer.php"); ?>

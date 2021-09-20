@@ -2,8 +2,6 @@
 class User1{
     private $db;
 
-    // public $GLOBALS['loggedin'] = false;
-
     public function __constructor($db){
         $this->db=$db;
         

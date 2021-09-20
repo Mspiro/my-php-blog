@@ -18,10 +18,9 @@
 
     date_default_timezone_set('Asia/Kolkata');
 
+    include("class_user.php");
     
-    include("class.user.php");
-    
-
     $user=new User($db);
 
     include("functions.php");
+?>
