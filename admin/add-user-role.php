@@ -1,5 +1,6 @@
 <?php
 require_once('../includes/config.php');
+require_once('classes/UserDB.php');
 
 
 if (!$user->is_logged_in()) {
@@ -32,14 +33,12 @@ if (!$user->is_logged_in()) {
 
             try {
 
-                $categorySlug = slug($categoryName);
-
+               
                 //insert into database
-                $stmt = $db->prepare('INSERT INTO role (role) VALUES (:role)');
-                $stmt->execute(array(
-                    ':role' => $role,
-                ));
 
+                $roleAdded = $UserDB->addNewRole();
+
+               
                 //redirect to index page
                 header('Location: role-list.php?action=added');
                 exit;
@@ -64,9 +63,6 @@ if (!$user->is_logged_in()) {
                                                                 echo $_POST['role'];
                                                             } ?>'>
             <p><input type="submit" name="submit" value="Add Role"></p>
-
-
-
         </h2>
     </form>
 </div>

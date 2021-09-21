@@ -1,27 +1,41 @@
 <?php include('add-stuff.php');
 include('classes/Article.php');
+include('classes/UserDB.php');
 include('sidebar.php');
 
 
-if (isset($_GET['id'])) {
+if (isset($_GET['id']) && isset($_GET['choice'])) {
     $id = $_GET['id'];
+    $choice = $_GET['choice'];
 
-    if (isset($_POST['Yes'])) {
-        $Article->deleteArticle($id);
-        header('location:index.php');
-        exit;
+    switch ($choice) {
 
-    } else if (isset($_POST['No'])) {
+        case "article":
+            if (isset($_POST['Yes'])) {
+                $Article->deleteArticle($id);
+                header('location:index.php');
+                exit;
+            } else if (isset($_POST['No'])) {
+                header('location:index.php');
+                exit;
+            }
+            break;
+        case "user":
+            if (isset($_POST['Yes'])) {
+                $UserDB->delUserById($id);
+                $UserDB->delUserProfileById($id);
+                header('location:users-list.php');
+                exit;
+            } else if (isset($_POST['No'])) {
+                header('location:users-list.php');
+                exit;
+            }
+            break;
 
-        header('location:index.php');
-
-        exit;
+        default:
+            echo "Please provide right choice..!";
     }
 }
-
-
-
-
 
 ?>
 

@@ -33,7 +33,6 @@ if (!$user->is_logged_in()) {
             <th>Update</th>
             <th>Delete</th>
         </tr>
-
         <?php
         try {
             $id=$_SESSION['userid'];
@@ -68,7 +67,7 @@ if (!$user->is_logged_in()) {
                     </button>
                 </td>
                 <td>
-                    <button class="delbtn"><a href="del-user.php?id=<?php echo $row['userid']; ?>">Delete</a></button>
+                    <button class="delbtn"><a href="del-confirm.php?id=<?php echo $row['userid']; ?>&choice=user">Delete</a></button>
                 </td>
 
         <?php

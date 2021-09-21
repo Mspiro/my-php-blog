@@ -1,5 +1,6 @@
 <?php
 require_once('../includes/config.php');
+require_once('classes/UserDB.php');
 
 //if not logged in redirect to login page
 if (!$user->is_logged_in()) {
@@ -9,13 +10,6 @@ if (!$user->is_logged_in()) {
 ?>
 <?php include("head.php");  ?>
 <title>User Roles- Blog</title>
-<script language="JavaScript" type="text/javascript">
-    function delcat(id, title) {
-        if (confirm("Are you sure you want to delete '" + title + "'")) {
-            window.location.href = 'categories.php?delcat=' + id;
-        }
-    }
-</script>
 <?php include("header.php");  ?>
 
 <div class="content">
@@ -33,16 +27,17 @@ if (!$user->is_logged_in()) {
         <?php
         try {
 
-            $stmt = $db->query('SELECT * FROM role ORDER BY role DESC');
-            while ($row = $stmt->fetch()) {
+            $row = $UserDB->selectAllRole();
 
+            foreach ($row as $row) {
                 echo '<tr>';
                 echo '<td>' . $row['role'] . '</td>';
         ?>
 
                 <td>
-                    <!-- <button class="editbtn"> <a href="edit-blog-category.php?id=<?php echo $row['categoryId']; ?>">Edit</a> </button> -->
-                    <!-- <button class="delbtn"> <a href="del-blog-category.php?id=<?php echo $row['categoryId']; ?>">Delete</a> </button> -->
+                    <!-- <button class="editbtn"> <a href="">Edit</a> </button> -->
+                    <!-- <button class="delbtn"> <a href="">Delete</a> </button> -->
+
                 </td>
 
         <?php

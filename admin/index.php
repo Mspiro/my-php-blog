@@ -48,7 +48,7 @@ if (!$user->is_logged_in()) {
                     </button>
                 </td>   
                 <td>
-                    <button class="delbtn"><a href="del-confirm.php?id=<?php echo $row['articleId']; ?>">Delete</a></button>
+                    <button class="delbtn"><a href="del-confirm.php?id=<?php echo $row['articleId']; ?>&choice=article">Delete</a></button>
                    
                 </td>
 
