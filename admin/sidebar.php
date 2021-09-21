@@ -7,12 +7,13 @@
     <div class="sidebar">
       <h2 style="padding-left: 10px;">Quick Shorcut For:
         <?php
+        $userid = $_SESSION['userid'];
         $auther = $db->query("SELECT username FROM users where userid='" . $_SESSION['userid'] . "'");
         $autherName = $auther->fetch(PDO::FETCH_ASSOC);
         echo "<span style='color:#fff;'>" . strtoupper($autherName['username']) . "</span>";
         ?> </h2>
 
-      <a href="blog-users.php">Profile
+      <a href="my-profile.php?id=<?php echo $userid ; ?>">Profile
         <hr>
       </a>
      
@@ -24,8 +25,6 @@
         echo '
           <a href="index.php">My Articles <hr></a>
           <a href="add-article.php">Add New Post <hr> </a>
-          <a href="blog-categories.php">Existing Categories <hr> </a>
-          <a href="add-blog-category.php">Add New Category <hr> </a>
           ';
       }
 

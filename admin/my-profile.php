@@ -1,5 +1,8 @@
 <?php
 require_once('../includes/config.php');
+require_once('classes/UserDB.php');
+
+
 
 if (!$user->is_logged_in()) {
     header('location:login.php');
@@ -13,50 +16,41 @@ include("head.php");
 
 <div class="content">
     <?php
-
-
+    $userid = $_GET['id'];
 
     try {
 
-        $stmt = $db->query("SELECT * FROM user_profile where profileid='" . $_GET['id'] . "' ");
-        $profile = $stmt->fetch();
+        $profile = $UserDB->selectUserDetailsById($userid);
 
-        $stmt1 = $db->query("SELECT * FROM users where userid='" . $profile['userid'] . "' ");
-        while ($row = $stmt1->fetch()) {
+       
+
+        $row = $UserDB->selectSingleUserById($userid);
+        
             if (isset($profile['userid'])) {
-                echo '<div> 
-            <img src="/blog/assets/img/userProfilePicture/' . $profile['displayProfile'] . '" alt="There is no image" width="100" height="100">
-             </div> ';
+                $role = $UserDB->selectRoleByUser($row['roleid']);
 
-
-
-
-
-                echo '
+                echo '<div> <h1>My Profile: (' . $role['role'] . ')</h1>
+            <img style="margin-left:180px;" src="/blog/assets/img/userProfilePicture/' . $profile['displayProfile'] . '" alt="There is no image" width="100" height="100">
+             </div> 
              
              <h1> Name: ' . $profile['firstName'] . ' ' . $profile['middleName'] . ' ' . $profile['lastName'] . ' </h1>
              <h3>
-        
-
                 Mobile No:- ' . $profile['mobile'] . ' <br>
                 Email:- ' . $profile['email'] . ' <br>
                 Address:- ' . $profile['city'] . ', ' . $profile['district'] . ', ' . $profile['state'] . ' , ' . $profile['country'] . ' <br>
                 
              </h3> 
              ';
-                $role = $db->query("SELECT * FROM role where roleid='" . $row['roleid'] . "'")->fetch();
-
-                echo '<h2> Role: ' . $role['role'] . '</h2>';
             } else {
                 echo "<h1>You have to update your profile! Please check button down below </h1> ";
             }
-        }
+        // }
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
     ?>
 
-    <p><button class="editbtn"><a href="edit-current-user.php?id=<?php echo $profile['userid']; ?>">Edit Profile</a></button></p>
+    <p><button class="editbtn"><a href="edit-current-user.php?id=<?php echo $userid; ?>">Edit My Profile</a></button></p>
 </div>
 
 

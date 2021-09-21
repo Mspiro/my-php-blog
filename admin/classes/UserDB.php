@@ -5,7 +5,6 @@ require_once($_SERVER["DOCUMENT_ROOT"] . '/blog/includes/config.php');
 class UserDB
 {
     
-
     function selectAllUsersById($id)
     {
         global $db;

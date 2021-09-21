@@ -42,9 +42,10 @@ if (!$user->is_logged_in()) {
            
             foreach ($stmt as $row) {
 
-                echo '<tr>';
-                echo '<td> <a href="view-blog-user.php?id=' . $row['profileid'] . '">' . $row['username'] . '</a></td>';
                 $userid = $row['userid'];
+                echo '<tr>';
+                echo '<td> <a style="text-decoration:none; color:blue;" href="my-profile.php?id=' . $userid. '">' . $row['username'] . '</a></td>';
+
                 $profile = $UserDB->selectUserDetailsById($userid);
 
                 if(isset($profile['firstName']) && isset($profile['lastName'] )){

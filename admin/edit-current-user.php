@@ -141,17 +141,13 @@ include("classes/UserDB.php");
                                                             echo $profile['country'];
                                                         } ?>">
         </p>
-
         <?php
 
         $id = $row['roleid'];
         $role = $UserDB->selectRoleByUser($id);
 
         echo '<p><label for="">Current Role: ( ' . $role['role'] . ' )</label><br><br> ';
-        ?>
-
-        <?php
-
+        
         $loggedInUser = $UserDB->selectSingleUserById($_SESSION['userid']);
         
         if ($loggedInUser['roleid'] == 1) {
