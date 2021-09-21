@@ -38,7 +38,7 @@ if (!$user->is_logged_in()) {
         try {
             $id=$_SESSION['userid'];
 
-            $stmt = $UserDB->selectUserById($id);
+            $stmt = $UserDB->selectAllUsersById($id);
            
             foreach ($stmt as $row) {
 
@@ -47,11 +47,13 @@ if (!$user->is_logged_in()) {
                 $userid = $row['userid'];
                 $profile = $UserDB->selectUserDetailsById($userid);
 
-                echo '<td> ' . $profile['firstName'] . ' ' . $profile['lastName'] . '</a></td>';
-            
+                if(isset($profile['firstName']) && isset($profile['lastName'] )){
+                echo '<td> ' . $profile['firstName'] . ' ' . $profile['lastName'] . '</td>';
+                } else{
+                    echo '<td> '. $row['username'].'</td>';
+                }
                 try {
                     $roleid = $row['roleid'];
-
                     $role = $UserDB->selectRoleByUser($roleid);
                     echo '<td>' . $role['role'] . '</td>';
                 } catch (PDOException $e) {

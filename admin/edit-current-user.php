@@ -1,17 +1,15 @@
 <?php
 include('add-stuff.php');
+include("sidebar.php");
+include("classes/UserDB.php");
+
 ?>
-<?php include("sidebar.php"); ?>
 <div class="content">
     <h2>Edit My Profile</h2>
     <?php
-
-    $stmt1 = $db->query("SELECT * FROM user_profile where userid='" . $_GET['id'] . "' ");
-    $profile = $stmt1->fetch();
-
-    $stmt = $db->query("SELECT * FROM users where userid='" . $profile['userid'] . "' ");
-    $row = $stmt->fetch();
-
+    $userid = $_GET['id'];
+    $profile  = $UserDB->selectUserDetailsById($userid);
+    $row = $UserDB->selectSingleUserById($userid);
     if (isset($_POST['submit'])) {
         extract($_POST);
 
@@ -59,52 +57,10 @@ include('add-stuff.php');
             try {
                 move_uploaded_file($_FILES["displayProfile"]["tmp_name"], $targetFilePath);
                 if (!isset($profile['userid'])) {
-                    $stmt = $db->prepare('INSERT INTO user_profile(userid,firstName, middleName,lastName, displayProfile, mobile, email, city, district, state, country) VALUES(:userid, :firstName, :middleName, :lastName, :displayProfile, :mobile, :email, :city, :district,:state, :country)');
-                    $stmt->execute(
-                        array(
-                            ':userid' => $userid,
-                            ':firstName' => $firstName,
-                            ':middleName' => $middleName,
-                            ':lastName' => $lastName,
-                            ':displayProfile' => $fileName,
-                            ':mobile' => $mobile,
-                            ':email' => $email,
-                            ':city' => $city,
-                            ':district' => $district,
-                            ':state' => $state,
-                            ':country' => $country
-                        )
-                    );
+                    $UserDB->addUserProfile($fileName);
                 } else {
-                    $stmt = $db->prepare('UPDATE user_profile SET firstName=:firstName, middleName=:middleName,lastName=:lastName, displayProfile=:displayProfile, mobile=:mobile, email=:email, city=:city, district=:district, state=:state, country=:country WHERE userid=:userid');
-                    $stmt->execute(
-                        array(
-                            ':userid' => $userid,
-                            ':firstName' => $firstName,
-                            ':middleName' => $middleName,
-                            ':lastName' => $lastName,
-                            ':displayProfile' => $fileName,
-                            ':mobile' => $mobile,
-                            ':email' => $email,
-                            ':city' => $city,
-                            ':district' => $district,
-                            ':state' => $state,
-                            ':country' => $country
-                        )
-                    );
+                    $UserDB->updateUserProfile($fileName);
                 }
-
-                $stmt2 = $db->query("SELECT * FROM user_profile where userid='" . $row['userid'] . "'");
-                $stmt2 = $stmt2->fetch();
-
-                $stmt3 = $db->prepare('UPDATE users SET profileid=:profileid, roleid=:roleid WHERE userid=:userid');
-                $stmt3->execute(
-                    array(
-                        ':profileid' => $stmt2['profileid'],
-                        ':userid' => $stmt2['userid'],
-                        ':roleid' => $_POST['role'],
-                    )
-                );
 
                 header('location:users.php?action=added');
                 exit;
@@ -189,23 +145,20 @@ include('add-stuff.php');
         <?php
         $role = $db->query("SELECT * FROM role where roleid='" . $row['roleid'] . "'")->fetch();
 
-        echo '<p><label for="">Assign Role: ( '.$role['role'].' )</label><br><br> ';
+        echo '<p><label for="">Assign Role: ( ' . $role['role'] . ' )</label><br><br> ';
         ?>
 
 
-            <?php
+        <?php
+            $roles = $UserDB->selectRole();
+        $i = 1;
 
-            $roles = $db->query("SELECT * FROM role")->fetchAll();
-
-            $i = 1;
-
-            foreach ($roles as $role) {
-                echo $i . ') <label for="role">' . $role['role'];
-                // echo $role['roleid'];
-                echo ' <input type="radio" name="role" value="' . $role['roleid'] . '">&nbsp;&nbsp;&nbsp;&nbsp; ';
-                $i++;
-            }
-            ?>
+        foreach ($roles as $role) {
+            echo $i . ') <label for="role">' . $role['role'];
+            echo ' <input type="radio" name="role" value="' . $role['roleid'] . '">&nbsp;&nbsp;&nbsp;&nbsp; ';
+            $i++;
+        }
+        ?>
 
         </p>
 
