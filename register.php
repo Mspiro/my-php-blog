@@ -1,4 +1,7 @@
-<?php include_once("includes/config.php"); ?>
+<?php
+include_once("includes/config.php");
+include_once("admin/classes/UserDB.php");
+?>
 <?php require_once("head.php"); ?>
 <title>Blog</title>
 
@@ -37,22 +40,7 @@
 
         if (!isset($error)) {
             try {
-
-
-                $stmt = $db->prepare('INSERT INTO users(username,password,email, roleid) VALUES(:username, :password, :email, :roleid )');
-                $password = md5($password);
-                $stmt->execute(array(':username' => $username, ':password' => $password, ':email' => $email, ':roleid'=>3));
-
-                $userid = $db->lastInsertId();
-
-                $stmt = $db->prepare('INSERT INTO user_profile( userid, email) VALUES( :userid,:email )');
-                $stmt->execute(array(':userid' => $userid,  ':email' => $email, ));
-
-                $profileid = $db->lastInsertId();
-                
-                $stmt = $db->prepare('UPDATE  users SET 	profileid=:profileid where userid= :userid')->execute(array(':userid' => $userid,  ':profileid' => $profileid ));
-
-
+                $stmt = $UserDB->addNewUser();
                 header('location: blog-users.php?action=added');
                 exit;
             } catch (PDOException $e) {
@@ -76,15 +64,15 @@
 
         <p><label for="">Password</label><br>
             <input type="password" id="password" name="password" value="<?php if (isset($error)) {
-                                                                        echo $_POST['password'];
-                                                                    } ?>">
+                                                                            echo $_POST['password'];
+                                                                        } ?>">
             <i class="far fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
         </p>
 
         <p><label for="">Confirm Password</label><br>
             <input type="password" id="confirmPassword" name="passwordConfirm" value="<?php if (isset($error)) {
-                                                                                        echo $_POST['passwordConfirm'];
-                                                                                    } ?>">
+                                                                                            echo $_POST['passwordConfirm'];
+                                                                                        } ?>">
             <i class="far fa-eye" id="togglePassword1" style="margin-left: -30px; cursor: pointer;"></i>
         </p>
 
