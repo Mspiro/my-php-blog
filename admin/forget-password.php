@@ -1,15 +1,16 @@
 <?php 
 require_once('../includes/config.php');
 require_once('classes/class.user.php');
+require_once('classes/UserDB.php');
 ?>
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 <link rel="stylesheet" type="text/css" href="http://localhost/blog/assets/style.css">
     <link rel="stylesheet" type="text/css" href="http://localhost/blog/assets/css-min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 </head>
 <body>
-<div class="content">
-    <h2>Edit User</h2>
+
+    <h2 class="account-forms" style="margin-top: 30vh;"> Change Password</h2>
     <?php
     
     
@@ -41,17 +42,9 @@ require_once('classes/class.user.php');
         if (!isset($error)) {
             if ($password) {
                 try {
-                    $password = md5($password);
-                    $id=$userid;
-                    echo $id;
-                    $stmt = $db->prepare('UPDATE users SET username= :username, password =:password, email = :email WHERE userid = :userid');
-                    $stmt->execute(array(
-                        ':username' => $username,
-                        ':password' => $password,
-                        ':email' => $email,
-                        ':userid' => $userid,
-                    ));
-                    // echo 'Ethe tr pohachalo pn ethun pudh kay hotaye tuch bg ata ';
+                    
+                    $result = $UserDB->editUser($userid);
+
                     header('location:http://localhost/blog/admin/login.php');
                     exit;
                 } catch (PDOException $e) {
@@ -71,21 +64,20 @@ require_once('classes/class.user.php');
         }
     }
     try {
-        $stmt = $db->prepare('SELECT userid, username, email FROM users WHERE userid=:userid');
-        $stmt->execute(array(':userid' => $_GET['id']));
-        $row = $stmt->fetch();
+        $id = $_GET['id'];
+        $row = $UserDB->selectSingleUserById($id);
 
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
     ?>
 
-    <form action="" method="post">
+    <form action="" method="post" class="account-forms" >
 
         <input type="hidden" name="userid" value="<?php echo $row['userid']; ?>">
 
         <p><label for="">Username</label><br>
-            <input type="text" name="username" value="<?php echo $row['username']; ?>">
+            <input type="text" name="username" value="<?php echo $row['username']; ?>" readonly>
         </p>
 
         <p><label for="">Password</label><br>
@@ -102,13 +94,12 @@ require_once('classes/class.user.php');
         </p>
 
         <p><label for="">Email</label><br>
-            <input type="email" name="email" value="<?php echo $row['email']; ?>">
+            <input type="email" name="email" value="<?php echo $row['email']; ?>" readonly>
         </p>
 
         <p><input type="submit" name="submit" class="editbtn" value="update"></p>
     </form>
 
-</div>
 <script>
         const togglePassword = document.querySelector('#togglePassword');
         const togglePassword1 = document.querySelector('#togglePassword1');

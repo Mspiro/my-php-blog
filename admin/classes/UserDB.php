@@ -1,10 +1,10 @@
 <?php
 
 require_once($_SERVER["DOCUMENT_ROOT"] . '/blog/includes/config.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/blog/phpmailer/PHPMailerAutoload.php');
 
 class UserDB
 {
-
     function login()
     {
         global $db;
@@ -28,6 +28,33 @@ class UserDB
         return $result;
     }
 
+    function sendMail($result){
+        $mail = new PHPMailer;
+        $emailid = 'meeninath.dhobale@qed42.com';
+        $password = 'z6jxakav9m';
+        $mail->isSMTP();                                     
+        $mail->Host = 'smtp.gmail.com';  
+        $mail->SMTPAuth = true;                            
+        $mail->Username = $emailid;                
+        $mail->Password = $password;                       
+        $mail->SMTPSecure = 'tls';                          
+        $mail->Port = 587;                                   
+        $mail->setFrom($emailid, 'Blog');
+        $mail->addAddress($result->email, $result->username);                   
+        $mail->addReplyTo($emailid, 'Blog');
+        $mail->isHTML(true);                                
+        $mail->Subject = 'Change Password- Blog.com';
+        $mail->Body='Hello '.$result->username.'<br>For change your current password please click <a href="http://localhost/blog/admin/forget-password.php/?id='.$result->userid.'">here</a>';
+        
+        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        if (!$mail->send()) {
+            echo 'Message could not be sent.';
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        } else {
+            header('location:login.php');
+        }
+        exit;
+    }
 
     // user Table
 
@@ -45,6 +72,13 @@ class UserDB
         global $db;
         $row = $db->query("SELECT * FROM users where userid='" . $id . "'")->fetch();
         return $row;
+    }
+
+    function selectSingleUserByEmail($email)
+    {
+        global $db;
+        $result = $db->query("SELECT * FROM users where email='" . $email . "'")->fetch(PDO::FETCH_OBJ);
+        return $result;
     }
 
     function addNewUser()
@@ -69,6 +103,13 @@ class UserDB
         $stmt = $db->query("DELETE FROM users WHERE userid='" . $id . "' ")->fetch();
     }
 
+    function editUser($id){
+        global $db;
+        extract($_POST);
+        $password = md5($password);
+
+        $stmt = $db->prepare("UPDATE users SET username= '$username', password ='$password', email = '$email' WHERE userid = '$id'")->execute();
+    }
 
     // user_profile Table
 
@@ -102,7 +143,6 @@ class UserDB
         global $db;
         $stmt = $db->query("DELETE FROM user_profile WHERE userid='" . $id . "' ")->fetch();
     }
-
 
 
     // role Table

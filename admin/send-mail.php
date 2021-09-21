@@ -17,40 +17,18 @@
 
     require_once('../includes/config.php');
     require_once('classes/class.user.php');
+    require_once('classes/UserDB.php');
 
 
     if (isset($_POST['submit'])) {
         $email = trim($_POST['email']);
         if ($email) {
             try {
-                $result = $db->query("SELECT email, userid, username FROM users WHERE email='" . $email . "'")->fetch(PDO::FETCH_OBJ);
+
+                $result = $UserDB->selectSingleUserByEmail($email);
                 if ($result->email == $email) {
-                    require '../phpmailer/PHPMailerAutoload.php';
-                    $mail = new PHPMailer;
-                    $emailid = 'meeninath.dhobale@qed42.com';
-                    $password = 'z6jxakav9m';
-                    $mail->isSMTP();                                     
-                    $mail->Host = 'smtp.gmail.com';  
-                    $mail->SMTPAuth = true;                            
-                    $mail->Username = $emailid;                
-                    $mail->Password = $password;                       
-                    $mail->SMTPSecure = 'tls';                          
-                    $mail->Port = 587;                                   
-                    $mail->setFrom($emailid, 'Blog');
-                    $mail->addAddress($result->email, $result->username);                   
-                    $mail->addReplyTo($emailid, 'Blog');
-                    $mail->isHTML(true);                                
-                    $mail->Subject = 'Change Password- Blog.com';
-                    $mail->Body='Hello '.$result->username.'<br>For change your current password please click <a href="http://localhost/blog/admin/forget-password.php/?id='.$result->userid.'>here</a>';
-                    
-                    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-                    if (!$mail->send()) {
-                        echo 'Message could not be sent.';
-                        echo 'Mailer Error: ' . $mail->ErrorInfo;
-                    } else {
-                        header('location:login.php');
-                    }
-                    exit;
+
+                    $sendMail = $UserDB->sendMail($result);
                 } else {
                     echo "<p class='invalid'>This email is not registereed </p>";
                 }
