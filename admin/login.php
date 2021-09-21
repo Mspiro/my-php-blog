@@ -1,6 +1,7 @@
 <?php
 require_once('../includes/config.php');
 require_once('classes/class.user.php');
+require_once('classes/UserDB.php');
 
 if ($user->is_logged_in()) {
     header('location:index.php');
@@ -25,21 +26,10 @@ if ($user->is_logged_in()) {
 <body>
     <?php
     if (isset($_POST['submit'])) {
-        $username = trim($_POST['username']);
-        $password = trim($_POST['password']);
+         extract($_POST);
         if ($username && $password) {
-            try {
-                $password = md5($password);
-                $result = $db->query("SELECT username, password,userid FROM users WHERE username='" . $username . "' and password='" . $password . "'")->fetch(PDO::FETCH_OBJ);
-                if ($result->username == $username and $result->password == $password) {
-                    $_SESSION['loggedin'] = true;
-                    $_SESSION['username'] = $result->username;
-                    $_SESSION['userid'] = $result->userid;
-                    header('location:blog-users.php');
-                    exit;
-                } else {
-                    echo "<p class='invalid'>Invalid Username or Password </p>";
-                }
+            try {             
+                $result = $UserDB->login();
             } catch (PDOException $e) {
                 // echo $e->getMessage();
             }

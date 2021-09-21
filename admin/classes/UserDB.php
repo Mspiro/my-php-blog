@@ -4,6 +4,31 @@ require_once($_SERVER["DOCUMENT_ROOT"] . '/blog/includes/config.php');
 
 class UserDB
 {
+
+    function login()
+    {
+        global $db;
+        extract($_POST);
+        $username = trim($username);
+        $password = trim($password);
+        $hashPassword = md5($password);
+
+        $result = $db->query("SELECT * FROM users WHERE username='".$username."' and password='". $hashPassword."'")->fetch();
+
+        if ($result['username'] == $username and $result['password'] == $hashPassword) {
+            $_SESSION['loggedin'] = true;
+            $_SESSION['username'] = $result['username'];
+            $_SESSION['userid'] = $result['userid'];
+            header('location:blog-users.php');
+            exit;
+        } else {
+            echo "<p class='invalid'>Invalid Username or Password </p>";
+        }
+
+        return $result;
+    }
+
+
     // user Table
 
     function selectAllUsersById($id)
