@@ -143,20 +143,26 @@ include("classes/UserDB.php");
         </p>
 
         <?php
-        $role = $db->query("SELECT * FROM role where roleid='" . $row['roleid'] . "'")->fetch();
 
-        echo '<p><label for="">Assign Role: ( ' . $role['role'] . ' )</label><br><br> ';
+        $id = $row['roleid'];
+        $role = $UserDB->selectRoleByUser($id);
+
+        echo '<p><label for="">Current Role: ( ' . $role['role'] . ' )</label><br><br> ';
         ?>
 
-
         <?php
-            $roles = $UserDB->selectRole();
-        $i = 1;
 
-        foreach ($roles as $role) {
-            echo $i . ') <label for="role">' . $role['role'];
-            echo ' <input type="radio" name="role" value="' . $role['roleid'] . '">&nbsp;&nbsp;&nbsp;&nbsp; ';
-            $i++;
+        $loggedInUser = $UserDB->selectSingleUserById($_SESSION['userid']);
+        
+        if ($loggedInUser['roleid'] == 1) {
+        $roles = $UserDB->selectAllRole();
+        $i = 1;
+            echo 'New Role:<br>';
+            foreach ($roles as $role) {
+                echo $i . ') <label for="role">' . $role['role'];
+                echo ' <input type="radio" name="role" value="' . $role['roleid'] . '">&nbsp;&nbsp;&nbsp;&nbsp; ';
+                $i++;
+            }
         }
         ?>
 

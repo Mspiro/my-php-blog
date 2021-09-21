@@ -13,7 +13,7 @@ include("head.php");
 
 <div class="content">
     <?php
-
+    $userid = $_SESSION['userid'];
     try {
 
         $stmt = $db->query("SELECT * FROM user_profile where userid='" . $_SESSION['userid'] . "' ");
@@ -43,7 +43,7 @@ include("head.php");
     }
     ?>
 
-    <p><button class="editbtn"><a href="add-blog-user.php">Edit My Profile</a></button></p>
+    <p><button class="editbtn"><a href="edit-current-user.php?id=<?php echo $userid; ?>">Edit My Profile</a></button></p>
 </div>
 
 

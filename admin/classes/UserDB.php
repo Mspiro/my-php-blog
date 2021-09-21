@@ -4,6 +4,7 @@ require_once($_SERVER["DOCUMENT_ROOT"] . '/blog/includes/config.php');
 
 class UserDB
 {
+    
 
     function selectAllUsersById($id)
     {
@@ -54,10 +55,12 @@ class UserDB
         $stmt = $db->prepare("UPDATE users SET roleid='$role' WHERE userid='$userid'")->execute();
     }
 
-    function selectRole(){
+    function selectAllRole(){
         global $db;
         $roles = $db->query("SELECT * FROM role")->fetchAll();
         return $roles;
     }
+
+
 }
 $UserDB = new UserDB;
