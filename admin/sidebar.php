@@ -15,8 +15,7 @@
       <a href="blog-users.php">Profile
         <hr>
       </a>
-      <!-- <hr> -->
-
+     
       <?php 
        $isAdmin = $db->query("SELECT * FROM users where userid='" . $_SESSION['userid'] . "'");
        $isAdmin = $isAdmin->fetch();
@@ -33,13 +32,11 @@
       ?>
       
       <?php
-      // $isAdmin = $db->query("SELECT * FROM users where userid='" . $_SESSION['userid'] . "'");
-      // $isAdmin = $isAdmin->fetch();
       if ($isAdmin['roleid'] == 1) {
         echo '
           <a href="add-user-role.php">Add New Role <hr></a>
           <a href="role-list.php">View Roles <hr> </a>
-          <a href="users.php">View Users <hr> </a>
+          <a href="users-list.php">View Users <hr> </a>
           ';
       }
 

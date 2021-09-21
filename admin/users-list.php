@@ -8,12 +8,6 @@ if (!$user->is_logged_in()) {
     header('location: login.php');
 }
 
-// if (isset($_GET['delpost'])) {
-//     $stmt = $db->prepare('DELETE from article where articleId=:articleId');
-//     $stmt->execute(array(':articleId' => $_GET['delpost']));
-//     header('location:index.php?action=deleted');
-//     exit;
-// }
 ?>
 
 <?php include("head.php"); ?>
@@ -50,15 +44,15 @@ if (!$user->is_logged_in()) {
 
                 echo '<tr>';
                 echo '<td> <a href="view-blog-user.php?id=' . $row['profileid'] . '">' . $row['username'] . '</a></td>';
+                $userid = $row['userid'];
+                $profile = $UserDB->selectUserDetailsById($userid);
 
-                $profile = $db->query("SELECT * FROM user_profile where userid='" . $row['userid'] . "'");
-                $profile = $profile->fetch();
-                // if(isset($profile['name'])){
                 echo '<td> ' . $profile['firstName'] . ' ' . $profile['lastName'] . '</a></td>';
-                // }
+            
                 try {
-                    $stmt = $db->query("SELECT * FROM role where roleid='" . $row['roleid'] . "'");
-                    $role = $stmt->fetch();
+                    $roleid = $row['roleid'];
+
+                    $role = $UserDB->selectRoleByUser($roleid);
                     echo '<td>' . $role['role'] . '</td>';
                 } catch (PDOException $e) {
                     echo '<td>NO Role Assign</td>';
