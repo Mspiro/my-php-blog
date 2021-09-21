@@ -53,9 +53,9 @@ if (!$user->is_logged_in()) {
 
                 $profile = $db->query("SELECT * FROM user_profile where userid='" . $row['userid'] . "'");
                 $profile = $profile->fetch();
-
+                // if(isset($profile['name'])){
                 echo '<td> ' . $profile['firstName'] . ' ' . $profile['lastName'] . '</a></td>';
-
+                // }
                 try {
                     $stmt = $db->query("SELECT * FROM role where roleid='" . $row['roleid'] . "'");
                     $role = $stmt->fetch();
