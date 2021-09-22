@@ -34,12 +34,12 @@ if (!$user->is_logged_in()) {
         <?php
         try {
             $id = $_SESSION['userid'];
-            $rows = $Article->showArticleUserId($id);
+            $rows = $Article->selectArticleByUserid($id);
             
             foreach ($rows as $row) {
                 echo '<tr>';
                 echo '<td > <a style="text-decoration: none;
-                color: blue;"  href="show.php?id='.$row['articleSlug'].'">' . $row['articleTitle'] . '</a></td>';
+                color: blue;"  href="show.php?id='.$row['articleId'].'">' . $row['articleTitle'] . '</a></td>';
                 echo '<td>' . date(' jS M Y', strtotime($row['articleEditDate'])) . '</td>';
         ?>
                 <td>

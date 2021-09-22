@@ -27,7 +27,7 @@ class Article
         $stmt = $db->query("DELETE FROM article WHERE articleId='" . $articleId . "' ");
     }
 
-    function showArticleByArticleId($id)
+    function selectArticleByArticleId($id)
     {
         global $db;
         $stmt = $db->prepare('SELECT * FROM article WHERE articleId = :articleId');
@@ -35,7 +35,7 @@ class Article
         $row = $stmt->fetch();
         return $row;
     }
-    function showArticleUserId($id)
+    function selectArticleByUserid($id)
     {
         global $db;
         $stmt = $db->prepare('SELECT * FROM article WHERE userid = :userid');
@@ -43,6 +43,23 @@ class Article
         $row = $stmt->fetchAll();
         return $row;
     }
+
+    function selectNextArticle($articleIdc){
+        global $db;
+        $recom = $db->prepare("SELECT * from article where articleId>:articleIdc order by articleId ASC limit 5");
+        $recom->execute(array(':articleIdc' => $articleIdc));
+        $row = $recom->fetchAll();
+        return $row;
+    }
+
+    function selectPreviousArticle($articleIdc){
+        global $db;
+        $recom = $db->prepare("SELECT * from article where articleId<:articleIdc order by articleId ASC limit 5");
+        $recom->execute(array(':articleIdc' => $articleIdc));
+        $row = $recom->fetchAll();
+        return $row;
+    }
+
 
     function editArticle($articleId, $articleTitle, $articleSlug, $articleDescrip, $articleContent, $articleTags, $fileName)
     {
@@ -58,6 +75,24 @@ class Article
             ':articleEditDate' => date('Y-m-d H:i:s'),
         ));
     }
+
+
+    // Article comments
+
+    function addComment($articleid){
+        global $db;
+        extract($_POST);
+        $userid = $_SESSION['userid'];
+        $addComment = $db->prepare("INSERT INTO comment (userid, articleId, comment) VALUES ('$userid', '$articleid', '$comment')")->execute();
+        return $addComment;
+    }
+
+    function showComments($articleid){
+        global $db;
+        $comments = $db->query("SELECT * FROM comment WHERE articleId='" . $articleid . "'")->fetchAll();
+        return $comments;
+    }
+
 }
 
 $Article = new Article();

@@ -36,7 +36,7 @@
                     $auther = $db->query("SELECT username FROM users where userid='" . $row['userid'] . "'");
                     $autherName = $auther->fetch(PDO::FETCH_ASSOC);
                     echo '<div class="box">';
-                    echo '<h1 class="title"><a href="' . $row['articleSlug'] . '" style="text-decoration:none;">' . $row['articleTitle'] . '</a></h1>';
+                    echo '<h1 class="title"><a href="' . $row['articleId'] . '" style="text-decoration:none;">' . $row['articleTitle'] . '</a></h1>';
                     echo '<hr>';
                     if (isset($autherName['username'])) {
                         echo "<strong>Author: </strong>" . $autherName['username'];
