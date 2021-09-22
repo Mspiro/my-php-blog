@@ -3,6 +3,13 @@
 require_once($_SERVER["DOCUMENT_ROOT"] . '/blog/includes/config.php');
 class Article
 {
+
+    function totalArticle(){
+        global $db;
+        $count = $db->query('select count(*) from article')->fetchColumn();
+        return $count;
+    }
+
     function createArticle($fileName)
     {
         global $db;

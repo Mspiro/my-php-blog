@@ -11,8 +11,8 @@
 <body>
 
 <?php 
-$image = $db->query("SELECT articleImage FROM article ORDER BY articleId DESC limit 3");
-$image = $image->fetch(PDO::FETCH_ASSOC);
+// $image = $db->query("SELECT articleImage FROM article ORDER BY articleId DESC limit 3");
+// $image = $image->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <div id="myslidshow" class="carousel slide carousel-fade" data-ride="carousel">
