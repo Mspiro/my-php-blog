@@ -1,10 +1,10 @@
 <?php
 require_once('../includes/config.php');
-require_once('classes/UserDB.php');
+require_once('classes/User.php');
 
 
-if (!$user->is_logged_in()) {
-    header('Location: login.php');
+if (!$User->is_logged_in()) {
+ header('Location: login.php');
 }
 ?>
 <?php include("head.php");  ?>
@@ -12,59 +12,59 @@ if (!$user->is_logged_in()) {
 <?php include("header.php");  ?>
 
 <div class="content">
-    <h2>Add Role</h2>
+ <h2>Add Role</h2>
 
-    <?php
+ <?php
 
-    //if form has been submitted process it
-    if (isset($_POST['submit'])) {
+ //if form has been submitted process it
+ if (isset($_POST['submit'])) {
 
-        $_POST = array_map('stripslashes', $_POST);
+  $_POST = array_map('stripslashes', $_POST);
 
-        //collect form data
-        extract($_POST);
+  //collect form data
+  extract($_POST);
 
-        //very basic validation
-        if ($role == '') {
-            $error[] = 'Please enter the Role.';
-        }
+  //very basic validation
+  if ($role == '') {
+   $error[] = 'Please enter the Role.';
+  }
 
-        if (!isset($error)) {
+  if (!isset($error)) {
 
-            try {
+   try {
 
-               
-                //insert into database
 
-                $roleAdded = $UserDB->addNewRole();
+    //insert into database
 
-               
-                //redirect to index page
-                header('Location: role-list.php?action=added');
-                exit;
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-            }
-        }
-    }
+    $roleAdded = $User->addNewRole();
 
-    //check for any errors
-    if (isset($error)) {
-        foreach ($error as $error) {
-            echo '<p class="message">' . $error . '</p>';
-        }
-    }
-    ?>
 
-    <form action="" method="post">
+    //redirect to index page
+    header('Location: role-list.php?action=added');
+    exit;
+   } catch (PDOException $e) {
+    echo $e->getMessage();
+   }
+  }
+ }
 
-        <h2><label>Role Title</label><br>
-            <input type='text' name='role' value='<?php if (isset($error)) {
-                                                                echo $_POST['role'];
-                                                            } ?>'>
-            <p><input type="submit" name="submit" value="Add Role"></p>
-        </h2>
-    </form>
+ //check for any errors
+ if (isset($error)) {
+  foreach ($error as $error) {
+   echo '<p class="message">' . $error . '</p>';
+  }
+ }
+ ?>
+
+ <form action="" method="post">
+
+  <h2><label>Role Title</label><br>
+   <input type='text' name='role' value='<?php if (isset($error)) {
+                                          echo $_POST['role'];
+                                         } ?>'>
+   <p><input type="submit" name="submit" value="Add Role"></p>
+  </h2>
+ </form>
 </div>
 <?php include("sidebar.php");  ?>
 

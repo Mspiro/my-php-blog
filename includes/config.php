@@ -20,7 +20,6 @@
 
     include("class_user.php");
     
-    $user=new User($db);
+    $UserDB=new UserDB($db);
 
     include("functions.php");
-?>

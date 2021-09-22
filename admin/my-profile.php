@@ -1,11 +1,11 @@
 <?php
 require_once('../includes/config.php');
-require_once('classes/UserDB.php');
+require_once('classes/User.php');
 
 
 
-if (!$user->is_logged_in()) {
-    header('location:login.php');
+if (!$User->is_logged_in()) {
+ header('location:login.php');
 }
 include("head.php");
 
@@ -15,21 +15,21 @@ include("head.php");
 <?php include("header.php"); ?>
 
 <div class="content">
-    <?php
-    $userid = $_GET['id'];
+ <?php
+ $userid = $_GET['id'];
 
-    try {
+ try {
 
-        $profile = $UserDB->selectUserDetailsById($userid);
+  $profile = $User->selectUserDetailsById($userid);
 
-       
 
-        $row = $UserDB->selectSingleUserById($userid);
-        
-            if (isset($profile['userid'])) {
-                $role = $UserDB->selectRoleByUser($row['roleid']);
 
-                echo '<div> <h1>My Profile: (' . $role['role'] . ')</h1>
+  $row = $User->selectSingleUserById($userid);
+
+  if (isset($profile['userid'])) {
+   $role = $User->selectRoleByUser($row['roleid']);
+
+   echo '<div> <h1>My Profile: (' . $role['role'] . ')</h1>
             <img style="margin-left:180px;" src="/blog/assets/img/userProfilePicture/' . $profile['displayProfile'] . '" alt="There is no image" width="100" height="100">
              </div> 
              
@@ -41,16 +41,16 @@ include("head.php");
                 
              </h3> 
              ';
-            } else {
-                echo "<h1>You have to update your profile! Please check button down below </h1> ";
-            }
-        // }
-    } catch (PDOException $e) {
-        echo $e->getMessage();
-    }
-    ?>
+  } else {
+   echo "<h1>You have to update your profile! Please check button down below </h1> ";
+  }
+  // }
+ } catch (PDOException $e) {
+  echo $e->getMessage();
+ }
+ ?>
 
-    <p><button class="editbtn"><a href="edit-current-user.php?id=<?php echo $userid; ?>">Edit My Profile</a></button></p>
+ <p><button class="editbtn"><a href="edit-current-user.php?id=<?php echo $userid; ?>">Edit My Profile</a></button></p>
 </div>
 
 

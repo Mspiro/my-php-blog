@@ -1,11 +1,11 @@
 <?php
 
 require_once('../includes/config.php');
-require_once('classes/class.user.php');
-require_once('classes/UserDB.php');
+// require_once('classes/class.user.php');
+require_once('classes/User.php');
 
-if (!$user->is_logged_in()) {
-    header('location: login.php');
+if (!$User->is_logged_in()) {
+ header('location: login.php');
 }
 
 ?>
@@ -18,68 +18,68 @@ if (!$user->is_logged_in()) {
 
 <?php include("sidebar.php"); ?>
 <div class="content">
-    <?php
-    if (isset($_GET['action'])) {
-        echo '<h3>Post' . $_GET['action'] . '.</h3>';
+ <?php
+ if (isset($_GET['action'])) {
+  echo '<h3>Post' . $_GET['action'] . '.</h3>';
+ }
+ ?>
+
+ <table>
+
+  <tr>
+   <th>UserName</th>
+   <th>Full Name</th>
+   <th>Role</th>
+   <th>Update</th>
+   <th>Delete</th>
+  </tr>
+  <?php
+  try {
+   $id = $_SESSION['userid'];
+
+   $stmt = $User->selectAllUsersById($id);
+
+   foreach ($stmt as $row) {
+
+    $userid = $row['userid'];
+    echo '<tr>';
+    echo '<td> <a style="text-decoration:none; color:blue;" href="my-profile.php?id=' . $userid . '">' . $row['username'] . '</a></td>';
+
+    $profile = $User->selectUserDetailsById($userid);
+
+    if (isset($profile['firstName']) && isset($profile['lastName'])) {
+     echo '<td> ' . $profile['firstName'] . ' ' . $profile['lastName'] . '</td>';
+    } else {
+     echo '<td> ' . $row['username'] . '</td>';
     }
-    ?>
+    try {
+     $roleid = $row['roleid'];
+     $role = $User->selectRoleByUser($roleid);
+     echo '<td>' . $role['role'] . '</td>';
+    } catch (PDOException $e) {
+     echo '<td>NO Role Assign</td>';
+    }
 
-    <table>
+  ?>
+    <td>
+     <button class="editbtn">
+      <a href="edit-current-user.php?id=<?php echo $row['userid']; ?>">Edit</a>
+     </button>
+    </td>
+    <td>
+     <button class="delbtn"><a href="del-confirm.php?id=<?php echo $row['userid']; ?>&choice=user">Delete</a></button>
+    </td>
 
-        <tr>
-            <th>UserName</th>
-            <th>Full Name</th>
-            <th>Role</th>
-            <th>Update</th>
-            <th>Delete</th>
-        </tr>
-        <?php
-        try {
-            $id=$_SESSION['userid'];
+  <?php
+    echo '</tr>';
+   }
+  } catch (PDOException $e) {
+   echo $e->getMessage();
+  }
 
-            $stmt = $UserDB->selectAllUsersById($id);
-           
-            foreach ($stmt as $row) {
-
-                $userid = $row['userid'];
-                echo '<tr>';
-                echo '<td> <a style="text-decoration:none; color:blue;" href="my-profile.php?id=' . $userid. '">' . $row['username'] . '</a></td>';
-
-                $profile = $UserDB->selectUserDetailsById($userid);
-
-                if(isset($profile['firstName']) && isset($profile['lastName'] )){
-                echo '<td> ' . $profile['firstName'] . ' ' . $profile['lastName'] . '</td>';
-                } else{
-                    echo '<td> '. $row['username'].'</td>';
-                }
-                try {
-                    $roleid = $row['roleid'];
-                    $role = $UserDB->selectRoleByUser($roleid);
-                    echo '<td>' . $role['role'] . '</td>';
-                } catch (PDOException $e) {
-                    echo '<td>NO Role Assign</td>';
-            }
-
-        ?>
-                <td>
-                    <button class="editbtn">
-                        <a href="edit-current-user.php?id=<?php echo $row['userid']; ?>">Edit</a>
-                    </button>
-                </td>
-                <td>
-                    <button class="delbtn"><a href="del-confirm.php?id=<?php echo $row['userid']; ?>&choice=user">Delete</a></button>
-                </td>
-
-        <?php
-                echo '</tr>';
-            }
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
-
-        ?>
-    </table>
-    <p><button class="editbtn"><a href="../register.php">Add New User</a></button></p>
+  ?>
+ </table>
+ <p><button class="editbtn"><a href="../register.php">Add New User</a></button></p>
 </div>
 
 

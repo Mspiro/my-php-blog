@@ -1,10 +1,10 @@
 <?php
 require_once('../includes/config.php');
-require_once('classes/UserDB.php');
+require_once('classes/User.php');
 
 //if not logged in redirect to login page
-if (!$user->is_logged_in()) {
-    header('Location: login.php');
+if (!$User->is_logged_in()) {
+ header('Location: login.php');
 }
 
 ?>
@@ -13,43 +13,43 @@ if (!$user->is_logged_in()) {
 <?php include("header.php");  ?>
 
 <div class="content">
-    <?php
-    if (isset($_GET['action'])) {
-        echo '<h3>Role ' . $_GET['action'] . '.</h3>';
-    }
-    ?>
+ <?php
+ if (isset($_GET['action'])) {
+  echo '<h3>Role ' . $_GET['action'] . '.</h3>';
+ }
+ ?>
 
-    <table>
-        <tr>
-            <th>Title</th>
-            <!-- <th>Operation</th> -->
-        </tr>
-        <?php
-        try {
+ <table>
+  <tr>
+   <th>Title</th>
+   <!-- <th>Operation</th> -->
+  </tr>
+  <?php
+  try {
 
-            $row = $UserDB->selectAllRole();
+   $row = $User->selectAllRole();
 
-            foreach ($row as $row) {
-                echo '<tr>';
-                echo '<td>' . $row['role'] . '</td>';
-        ?>
+   foreach ($row as $row) {
+    echo '<tr>';
+    echo '<td>' . $row['role'] . '</td>';
+  ?>
 
-                <td>
-                    <!-- <button class="editbtn"> <a href="">Edit</a> </button> -->
-                    <!-- <button class="delbtn"> <a href="">Delete</a> </button> -->
+    <td>
+     <!-- <button class="editbtn"> <a href="">Edit</a> </button> -->
+     <!-- <button class="delbtn"> <a href="">Delete</a> </button> -->
 
-                </td>
+    </td>
 
-        <?php
-                echo '</tr>';
-            }
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
-        ?>
-    </table>
+  <?php
+    echo '</tr>';
+   }
+  } catch (PDOException $e) {
+   echo $e->getMessage();
+  }
+  ?>
+ </table>
 
-    <p><button class="editbtn"><a href='add-user-role.php'>Add New Role</a></button></p>
+ <p><button class="editbtn"><a href='add-user-role.php'>Add New Role</a></button></p>
 </div>
 <?php include("sidebar.php");  ?>
 <?php include("footer.php");  ?>

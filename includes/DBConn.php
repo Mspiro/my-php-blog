@@ -35,4 +35,3 @@ class DBConn
 
 $db = new DBConn;
 // print_r($db->db);
-?>
