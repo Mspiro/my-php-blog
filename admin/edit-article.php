@@ -61,7 +61,7 @@ if (!$user->is_logged_in()) {
             try {
                 move_uploaded_file($_FILES["articleImage"]["tmp_name"], $targetFilePath);
 
-                $Article->editArticle($articleId,$articleTitle, $articleSlug, $articleDescrip, $articleContent, $articleTags, $fileName);
+                $Article->editArticle($fileName);
 
 
                 header("Location: index.php?action=updated");
@@ -82,7 +82,7 @@ if (!$user->is_logged_in()) {
     try {
 
         $id = $_GET['id'];
-        $row =  $Article->showArticleByArticleId($id);
+        $row =  $Article->selectArticleByArticleId($id);
     } catch (PDOException $e) {
         echo $e->getMessage();
     }

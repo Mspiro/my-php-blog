@@ -1,7 +1,10 @@
-<?php include_once("includes/config.php"); ?>
-<?php require_once("head.php"); ?>
-<title>Blog</title>
+<?php include_once("includes/config.php");
+require_once("head.php");
+require_once("admin/classes/Article.php");
+require_once("admin/classes/UserDB.php");
 
+?>
+<title>Blog</title>
 <?php include("header.php"); ?>
 
 <body>
@@ -10,8 +13,6 @@
         <?php include('carousel.php'); ?>
     </div>
     <div class="container">
-
-
         <div>
             <?php
             $perPageRecord = 4;
@@ -22,24 +23,20 @@
                     $pageNo = 0;
                 } else {
                     $pageNo = ($page * $perPageRecord) - $perPageRecord;
-                    // if($pageNo<0){
-                    //     $pageNo = 0;
-                    // }
                 }
             }
             try {
 
-                $stmt = $db->query('SELECT articleId, articleTitle, articleSlug, articleDescrip, articleDate,articleEditDate, articleTags,userid FROM article ORDER BY articleId DESC LIMIT ' . $pageNo . ',4');
+                $row = $Article->selectArticleByLimit($pageNo);
 
-                while ($row = $stmt->fetch()) {
-
-                    $auther = $db->query("SELECT username FROM users where userid='" . $row['userid'] . "'");
-                    $autherName = $auther->fetch(PDO::FETCH_ASSOC);
+                foreach ($row as $row) {
+                    $userid = $row['userid'];
+                    $user = $UserDB->selectSingleUserById($userid);
                     echo '<div class="box">';
                     echo '<h1 class="title"><a href="' . $row['articleId'] . '" style="text-decoration:none;">' . $row['articleTitle'] . '</a></h1>';
                     echo '<hr>';
-                    if (isset($autherName['username'])) {
-                        echo "<strong>Author: </strong>" . $autherName['username'];
+                    if (isset($user['username'])) {
+                        echo "<strong>Author: </strong>" . $user['username'];
                     }
                     echo ' <strong>Posted on: </strong>' . date('jS M Y ', strtotime($row['articleDate']));
 
@@ -60,21 +57,19 @@
             ?>
 
         </div>
-
         <div class="center space">
 
             <?php
-            $totalRecords = $db->query('select count(*) from article')->fetchColumn();
+            $totalRecords = $Article->totalArticle();
             $perPageRecord = 4;
             $numberOfPages = ceil($totalRecords / $perPageRecord);
-            // $i=0;
             echo '<a style="padding: 0 15px;" href="index.php?page=0">First</a>';
             for ($i = 1; $i <= $numberOfPages; $i++) {
 
-            ?> <a  href="index.php?page=<?php echo $i ?>" style="text-decoration: none;">  <span id="pagenumber" style="padding: 0 15px;"> <?php echo $i ?> </span> </a> <?php } 
-            
-            echo '<a style="padding: 0 15px;" href="index.php?page='.$numberOfPages.'">Last</a>';
-            ?>
+            ?> <a href="index.php?page=<?php echo $i ?>" style="text-decoration: none;"> <span id="pagenumber" style="padding: 0 15px;"> <?php echo $i ?> </span> </a> <?php }
+
+                                                                                                                                                                    echo '<a style="padding: 0 15px;" href="index.php?page=' . $numberOfPages . '">Last</a>';
+                                                                                                                                                                        ?>
 
 
         </div>
@@ -83,7 +78,7 @@
     <script>
         let pageNumber = document.querySelector('#pagenumber');
         pageNumber.addEventListener('click', function() {
-            pageNumber.style.color = 'red'; 
+            pageNumber.style.color = 'red';
         });
     </script>
 

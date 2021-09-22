@@ -4,7 +4,8 @@ require_once($_SERVER["DOCUMENT_ROOT"] . '/blog/includes/config.php');
 class Article
 {
 
-    function totalArticle(){
+    function totalArticle()
+    {
         global $db;
         $count = $db->query('select count(*) from article')->fetchColumn();
         return $count;
@@ -44,7 +45,16 @@ class Article
         return $row;
     }
 
-    function selectNextArticle($articleIdc){
+    function selectArticleByLimit($limit)
+    {
+        global $db;
+        $stmt = $db->prepare("SELECT * FROM article ORDER BY articleId DESC LIMIT " . $limit . "4");
+        $stmt->execute();
+        $row = $stmt->fetchAll();
+        return $row;
+    }
+    function selectNextArticle($articleIdc)
+    {
         global $db;
         $recom = $db->prepare("SELECT * from article where articleId>:articleIdc order by articleId ASC limit 5");
         $recom->execute(array(':articleIdc' => $articleIdc));
@@ -52,7 +62,8 @@ class Article
         return $row;
     }
 
-    function selectPreviousArticle($articleIdc){
+    function selectPreviousArticle($articleIdc)
+    {
         global $db;
         $recom = $db->prepare("SELECT * from article where articleId<:articleIdc order by articleId ASC limit 5");
         $recom->execute(array(':articleIdc' => $articleIdc));
@@ -61,25 +72,19 @@ class Article
     }
 
 
-    function editArticle($articleId, $articleTitle, $articleSlug, $articleDescrip, $articleContent, $articleTags, $fileName)
+    function editArticle($fileName)
     {
         global $db;
-        $stmt = $db->prepare('UPDATE article SET articleTitle=:articleTitle, articleSlug=:articleSlug, articleDescrip=:articleDescrip, articleContent=:articleContent, articleEditDate=:articleEditDate, articleTags=:articleTags, articleImage=:articleImage  WHERE articleId=:articleId')->execute(array(
-            ':articleImage' => $fileName,
-            ':articleTitle' => $articleTitle,
-            ':articleSlug' => $articleSlug,
-            ':articleDescrip' => $articleDescrip,
-            ':articleContent' => $articleContent,
-            ':articleId' => $articleId,
-            ':articleTags' => $articleTags,
+        extract($_POST);
+        $stmt = $db->prepare("UPDATE article SET articleTitle='$articleTitle', articleSlug='$articleSlug', articleDescrip='$articleDescrip', articleContent='$articleContent', articleEditDate=:articleEditDate, articleTags='$articleTags', articleImage='$fileName'  WHERE articleId='$articleId'")->execute(array(
             ':articleEditDate' => date('Y-m-d H:i:s'),
         ));
     }
 
-
     // Article comments
 
-    function addComment($articleid){
+    function addComment($articleid)
+    {
         global $db;
         extract($_POST);
         $userid = $_SESSION['userid'];
@@ -87,12 +92,12 @@ class Article
         return $addComment;
     }
 
-    function showComments($articleid){
+    function showComments($articleid)
+    {
         global $db;
         $comments = $db->query("SELECT * FROM comment WHERE articleId='" . $articleid . "'")->fetchAll();
         return $comments;
     }
-
 }
 
 $Article = new Article();

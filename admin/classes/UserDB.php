@@ -94,7 +94,7 @@ class UserDB
 
         $profileid = $db->lastInsertId();
 
-        $stmt = $db->prepare("UPDATE  users SET 	profileid='$profileid' where userid= '$userid' ")->execute();
+        $stmt = $db->prepare("UPDATE  users SET profileid='$profileid' where userid= '$userid' ")->execute();
     }
 
     function delUserById($id)
