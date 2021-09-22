@@ -67,9 +67,7 @@ require_once("admin/classes/UserDB.php");
             for ($i = 1; $i <= $numberOfPages; $i++) {
 
             ?> <a href="index.php?page=<?php echo $i ?>" style="text-decoration: none;"> <span id="pagenumber" style="padding: 0 15px;"> <?php echo $i ?> </span> </a> <?php }
-
-                                                                                                                                                                    echo '<a style="padding: 0 15px;" href="index.php?page=' . $numberOfPages . '">Last</a>';
-                                                                                                                                                                        ?>
+            echo '<a style="padding: 0 15px;" href="index.php?page=' . $numberOfPages . '">Last</a>';?>
 
 
         </div>
