@@ -1,6 +1,7 @@
 <?php
 include('add-stuff.php');
 include("sidebar.php");
+// include("classes/User.php");
 include("classes/User.php");
 
 ?>

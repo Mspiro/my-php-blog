@@ -43,7 +43,7 @@ $row = $Article->selectArticleByArticleId($id);
   ?>
   <br><br>
   <hr>
-  <h2> Recomended Posts:</h2>
+  <h2> Next Posts:</h2>
   <?php
 
   foreach ($recom as $row1) {
