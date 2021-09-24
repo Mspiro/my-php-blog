@@ -14,9 +14,12 @@ include("head.php");
 ?>
 
 <title>My Profile</title>
+<body>
+  
+
 <?php include("header.php"); ?>
 
-<div class="content">
+<div class="content content-center">
  <?php
  $userid = $_GET['id'];
 
@@ -31,12 +34,13 @@ include("head.php");
   if (isset($profile['userid'])) {
    $role = $Roles->selectRoleByUser($row['roleid']);
 
-   echo '<div> <h1>My Profile: </h1>
-            <img style="margin-left:180px;" src="/blog/assets/img/userProfilePicture/' . $profile['displayProfile'] . '" alt="There is no image" width="100" height="100">
+   echo '<div class="content-center"> <h1>My Profile: </h1>
+            <img  class="content-center" src="/blog/assets/img/userProfilePicture/' . $profile['displayProfile'] . '" alt="There is no image" width="100" height="100">
              </div> 
-             <h1> Name: ' . $profile['firstName'] . ' ' . $profile['middleName'] . ' ' . $profile['lastName'] . ' </h1>
-             <h2>Role: <span style="color:Gray;">' . $role['role'] . '</span></h2>
-             <h3>
+             <h1> Name: ' . $profile['firstName'] . ' ' . $profile['middleName'] . ' ' . $profile['lastName'] . '</h1>
+              <h3>
+             Role: <span style="color:Gray;">' . $role['role'] . '</span>
+              <br>
                 Mobile No:- ' . $profile['mobile'] . ' <br>
                 Email:- ' . $profile['email'] . ' <br>
                 Address:- ' . $profile['city'] . ', ' . $profile['district'] . ', ' . $profile['state'] . ' , ' . $profile['country'] . ' <br>
@@ -56,5 +60,7 @@ include("head.php");
 </div>
 
 
-<?php include("sidebar.php"); ?>
+<?php // include("sidebar.php"); ?>
 <?php include("footer.php"); ?>
+
+</body>

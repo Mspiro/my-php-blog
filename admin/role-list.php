@@ -52,5 +52,5 @@ if (!$User->is_logged_in()) {
 
  <p><button class="editbtn"><a href='add-user-role.php'>Add New Role</a></button></p>
 </div>
-<?php include("sidebar.php");  ?>
+<?php // include("sidebar.php");  ?>
 <?php include("footer.php");  ?>

@@ -1,7 +1,7 @@
 <?php include('add-stuff.php');
 include('classes/Article.php');
 include('classes/Profile.php');
-include('sidebar.php');
+// include('sidebar.php');
 
 if (isset($_GET['id']) && isset($_GET['choice'])) {
  $id = $_GET['id'];

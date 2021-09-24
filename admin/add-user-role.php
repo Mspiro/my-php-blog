@@ -67,6 +67,6 @@ if (!$User->is_logged_in()) {
   </h2>
  </form>
 </div>
-<?php include("sidebar.php");  ?>
+<?php //include("sidebar.php");  ?>
 
 <?php include("footer.php");  ?>

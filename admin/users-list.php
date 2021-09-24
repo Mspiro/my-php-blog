@@ -18,7 +18,7 @@ if (!$User->is_logged_in()) {
 
 <?php include("header.php"); ?>
 
-<?php include("sidebar.php"); ?>
+<?php //include("sidebar.php"); ?>
 <div class="content">
  <?php
  if (isset($_GET['action'])) {

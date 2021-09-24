@@ -7,6 +7,7 @@ body {
   margin: 0;
   font-family: "Lato", sans-serif;
   background-color: white;
+  height: 100vh;
 }
 h1 {
   color: black;
@@ -19,6 +20,7 @@ p {
 .container {
   background-color: white;
   width: 100%;
+  /* height: 100%; */
   margin: 0 20px;
   overflow: hidden;
 }
@@ -27,7 +29,17 @@ p {
   display: flex;
   /* flex-direction:column; */
   justify-content: center;
+
 }
+.content-center {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+
+
 .space {
   margin: 40px;
   padding: 0 30px;
@@ -87,8 +99,9 @@ p {
 }
 
 .content {
-  padding: 10px 100px;
-  width: 60%;
+  padding: 10px 5%;
+  width: 90%;
+  height: 100%;
   float: left;
   border-left-color: #fff;
   border-right-color: #fff;
@@ -132,10 +145,18 @@ p {
   color: #e7625f;
 }
 .footer {
-  float: bottom;
+  /* float: bottom;
+  background-color: #cccccc;
+  color: black;
+  clear: both; */
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  bottom: 0px;
   background-color: #cccccc;
   color: black;
   clear: both;
+  width: 100%;
 }
 .footer a {
   color: #4d414c;

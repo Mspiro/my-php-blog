@@ -16,9 +16,10 @@ if (!$User->is_logged_in()) {
   selector: '#textarea1'
  });
 </script>
+<body>
 <?php include("header.php"); ?>
 
-<?php include("sidebar.php"); ?>
+<?php //include("sidebar.php"); ?>
 
 
 <div class="content">
@@ -104,7 +105,7 @@ if (!$User->is_logged_in()) {
    </fieldset>
    <fieldset>
     <h2><label>Short Description(Meta Description) </label><br>
-     <textarea name='articleDescrip' cols='117' rows='3' required><?php echo $row['articleDescrip']; ?></textarea>
+     <textarea name='articleDescrip' style="width:100%;height:40px" required><?php echo $row['articleDescrip']; ?></textarea>
     </h2>
    </fieldset>
    <fieldset>
@@ -127,4 +128,8 @@ if (!$User->is_logged_in()) {
 
 </div>
 
-<?php include("footer.php");  ?>
+<?php //include("footer.php");  ?>
+
+
+  
+</body>

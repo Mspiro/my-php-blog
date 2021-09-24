@@ -18,8 +18,11 @@ if (!$User->is_logged_in()) {
   selector: '#textarea1'
  });
 </script>
+<body>
+  
+
 <?php include("header.php"); ?>
-<?php include("sidebar.php"); ?>
+<?php //include("sidebar.php"); ?>
 
 <div class="content">
  <h1>Add New Article</h1>
@@ -82,7 +85,7 @@ if (!$User->is_logged_in()) {
    </fieldset>
    <fieldset>
     <h2><label>Short Description(Meta Description) </label><br>
-     <textarea type="text" name="articleDescrip" cols="100" rows="6"><?php if (isset($error)) {
+     <textarea type="text" name="articleDescrip" style="width:100%;height:40px" ><?php if (isset($error)) {
                                                                       echo $_POST['articleDescrip'];
                                                                      } ?></textarea>
     </h2>
@@ -109,5 +112,5 @@ if (!$User->is_logged_in()) {
   </fieldset>
  </form>
 </div>
-
-<?php include("footer.php"); ?>
+<?php //include("footer.php"); ?>
+</body>
