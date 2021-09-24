@@ -83,21 +83,7 @@ class Article
 
   // Article comments
 
-  function addComment($articleid)
-  {
-    global $db;
-    extract($_POST);
-    $userid = $_SESSION['userid'];
-    $addComment = $db->prepare("INSERT INTO comment (userid, articleId, comment) VALUES ('$userid', '$articleid', '$comment')")->execute();
-    return $addComment;
-  }
-
-  function showComments($articleid)
-  {
-    global $db;
-    $comments = $db->query("SELECT * FROM comment WHERE articleId='" . $articleid . "'")->fetchAll();
-    return $comments;
-  }
+  
 }
 
 $Article = new Article();

@@ -33,7 +33,7 @@ require_once("admin/classes/User.php");
      $userid = $row['userid'];
      $user = $User->selectSingleUserById($userid);
      echo '<div class="box">';
-     echo '<h1 class="title"><a href="' . $row['articleId'] . '" style="text-decoration:none;">' . $row['articleTitle'] . '</a></h1>';
+     echo '<h1 class="title"><a href="show.php?id=' . $row['articleId'] . '" style="text-decoration:none;">' . $row['articleTitle'] . '</a></h1>';
      echo '<hr>';
      if (isset($user['username'])) {
       echo "<strong>Author: </strong>" . $user['username'];
@@ -47,7 +47,7 @@ require_once("admin/classes/User.php");
      echo '<hr>';
 
      echo '<p>' . $row['articleDescrip'] . '</p>';
-     echo '<p><button class="readbtn"><a href="' . $row['articleSlug'] . '">Read More</a></button></p>';
+     echo '<p><button class="readbtn"><a href="show.php?id=' . $row['articleId'] . '">Read More</a></button></p>';
      echo '</div>';
     }
    } catch (PDOException $e) {

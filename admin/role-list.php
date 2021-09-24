@@ -1,6 +1,7 @@
 <?php
 require_once('../includes/config.php');
 require_once('classes/User.php');
+require_once('classes/Roles.php');
 
 //if not logged in redirect to login page
 if (!$User->is_logged_in()) {
@@ -27,7 +28,7 @@ if (!$User->is_logged_in()) {
   <?php
   try {
 
-   $row = $User->selectAllRole();
+   $row = $Roles->selectAllRole();
 
    foreach ($row as $row) {
     echo '<tr>';

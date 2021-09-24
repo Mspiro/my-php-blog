@@ -1,8 +1,7 @@
 <?php include('add-stuff.php');
 include('classes/Article.php');
-include('classes/User.php');
+include('classes/Profile.php');
 include('sidebar.php');
-
 
 if (isset($_GET['id']) && isset($_GET['choice'])) {
  $id = $_GET['id'];
@@ -23,7 +22,7 @@ if (isset($_GET['id']) && isset($_GET['choice'])) {
   case "user":
    if (isset($_POST['Yes'])) {
     $User->delUserById($id);
-    $User->delUserProfileById($id);
+    $Profile->delUserProfileById($id);
     header('location:users-list.php');
     exit;
    } else if (isset($_POST['No'])) {
@@ -36,7 +35,6 @@ if (isset($_GET['id']) && isset($_GET['choice'])) {
    echo "Please provide right choice..!";
  }
 }
-
 ?>
 
 <form action="" method="POST">

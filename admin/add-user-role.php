@@ -1,6 +1,7 @@
 <?php
 require_once('../includes/config.php');
 require_once('classes/User.php');
+require_once('classes/Roles.php');
 
 
 if (!$User->is_logged_in()) {
@@ -36,14 +37,14 @@ if (!$User->is_logged_in()) {
 
     //insert into database
 
-    $roleAdded = $User->addNewRole();
+    $roleAdded = $Roles->addNewRole();
 
 
     //redirect to index page
     header('Location: role-list.php?action=added');
     exit;
    } catch (PDOException $e) {
-    echo $e->getMessage();
+    echo '<h1 class="invalid">This Role already exist.</h1>';
    }
   }
  }

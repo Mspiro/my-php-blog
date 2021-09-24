@@ -1,15 +1,16 @@
 <?php
 include('add-stuff.php');
 include("sidebar.php");
-// include("classes/User.php");
-include("classes/User.php");
+include("classes/Profile.php");
+include("classes/Roles.php");
+
 
 ?>
 <div class="content">
  <h2>Edit My Profile</h2>
  <?php
  $userid = $_GET['id'];
- $profile  = $User->selectUserDetailsById($userid);
+ $profile  = $Profile->selectUserDetailsById($userid);
  $row = $User->selectSingleUserById($userid);
  if (isset($_POST['submit'])) {
   extract($_POST);
@@ -59,12 +60,14 @@ include("classes/User.php");
     move_uploaded_file($_FILES["displayProfile"]["tmp_name"], $targetFilePath);
     if (!isset($profile['userid'])) {
      $User->addUserProfile($fileName);
+     header('location:users-list.php?action=added');
+     exit;
     } else {
-     $User->updateUserProfile($fileName);
+      $Profile->updateUserProfile($fileName);
+      header('location:users-list.php?action=added');
+      exit;
     }
 
-    header('location:users.php?action=added');
-    exit;
    } catch (PDOException $e) {
     echo $e->getMessage();
    }
@@ -145,14 +148,14 @@ include("classes/User.php");
   <?php
 
   $id = $row['roleid'];
-  $role = $User->selectRoleByUser($id);
+  $role = $Roles->selectRoleByUser($id);
 
   echo '<p><label for="">Current Role: ( ' . $role['role'] . ' )</label><br><br> ';
 
   $loggedInUser = $User->selectSingleUserById($_SESSION['userid']);
 
   if ($loggedInUser['roleid'] == 1) {
-   $roles = $User->selectAllRole();
+   $roles = $Roles->selectAllRole();
    $i = 1;
    echo 'New Role:<br>';
    foreach ($roles as $role) {

@@ -1,6 +1,8 @@
 <?php include_once("includes/config.php");
 include_once("admin/classes/Article.php");
 include_once("admin/classes/User.php");
+include_once("admin/classes/Comment.php");
+include_once("admin/classes/Profile.php");
 
 $id = $_GET['id'];
 
@@ -9,7 +11,7 @@ $row = $Article->selectArticleByArticleId($id);
 $userid = $row['userid'];
 $articleid = $row['articleId'];
 
-$user =  $User->selectSingleUserById($userid);
+$userdetail =  $User->selectSingleUserById($userid);
 
 //if post does not exists redirect user.
 if ($row['articleId'] == '') {
@@ -39,7 +41,7 @@ if ($row['articleId'] == '') {
     }
     if (!isset($error)) {
      try {
-      $addComment = $Article->addComment($articleid);
+      $addComment = $Comment->addComment($articleid);
      } catch (PDOException $e) {
       echo $e->getMessage();
      }
@@ -48,8 +50,8 @@ if ($row['articleId'] == '') {
 
    echo '<div >';
    echo '<h1>' . $row['articleTitle'] . '</h1>';
-   if (isset($user['username'])) {
-    echo "<strong>Author: </strong>" . $user['username'] . ', ';
+   if (isset($userdetail['username'])) {
+    echo "<strong>Author: </strong>" . $userdetail['username'] . ', ';
    }
 
    echo '<strong> Posted on:</strong> ' . date('jS M Y', strtotime($row['articleDate']));
@@ -69,13 +71,13 @@ if ($row['articleId'] == '') {
 
    try {
 
-    $comments = $Article->showComments($articleid);
+    $comments = $Comment->showComments($articleid);
 
     foreach ($comments as $comment) {
      $userid = $comment['userid'];
 
-     $user = $User->selectUserDetailsById($userid);
-     echo '<hr><h4>' . $user['firstName'] . ' ' . $user['lastName'] . ':-</h4> ';
+     $userdetail = $Profile ->selectUserDetailsById($userid);
+     echo '<hr><h4>' . $userdetail['firstName'] . ' ' . $userdetail['lastName'] . ':-</h4> ';
      echo $comment['comment'];
      echo '<br>';
     }
@@ -102,7 +104,7 @@ if ($row['articleId'] == '') {
 
   </form>
 
-  <h2> Recomended Posts:</h2>
+  <h2> Next Posts:</h2>
   <?php
 
   $articleIdc = $row['articleId'];

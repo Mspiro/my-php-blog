@@ -1,6 +1,8 @@
 <?php
 require_once('../includes/config.php');
 require_once('classes/User.php');
+require_once('classes/Roles.php');
+require_once('classes/Profile.php');
 
 
 
@@ -20,20 +22,20 @@ include("head.php");
 
  try {
 
-  $profile = $User->selectUserDetailsById($userid);
+  $profile = $Profile->selectUserDetailsById($userid);
 
 
 
   $row = $User->selectSingleUserById($userid);
 
   if (isset($profile['userid'])) {
-   $role = $User->selectRoleByUser($row['roleid']);
+   $role = $Roles->selectRoleByUser($row['roleid']);
 
-   echo '<div> <h1>My Profile: (' . $role['role'] . ')</h1>
+   echo '<div> <h1>My Profile: </h1>
             <img style="margin-left:180px;" src="/blog/assets/img/userProfilePicture/' . $profile['displayProfile'] . '" alt="There is no image" width="100" height="100">
              </div> 
-             
              <h1> Name: ' . $profile['firstName'] . ' ' . $profile['middleName'] . ' ' . $profile['lastName'] . ' </h1>
+             <h2>Role: <span style="color:Gray;">' . $role['role'] . '</span></h2>
              <h3>
                 Mobile No:- ' . $profile['mobile'] . ' <br>
                 Email:- ' . $profile['email'] . ' <br>

@@ -3,6 +3,8 @@
 require_once('../includes/config.php');
 // require_once('classes/class.user.php');
 require_once('classes/User.php');
+require_once('classes/Roles.php');
+require_once('classes/Profile.php');
 
 if (!$User->is_logged_in()) {
  header('location: login.php');
@@ -20,7 +22,11 @@ if (!$User->is_logged_in()) {
 <div class="content">
  <?php
  if (isset($_GET['action'])) {
-  echo '<h3>Post' . $_GET['action'] . '.</h3>';
+   if($_GET['action']=='added'){
+  echo '<h3 style="color:Green;">User updated successfully..!</h3>';
+   }else{
+    echo '<h3 style="color:Green;">User added successfully..!</h3>';
+   }
  }
  ?>
 
@@ -43,19 +49,23 @@ if (!$User->is_logged_in()) {
 
     $userid = $row['userid'];
     echo '<tr>';
-    echo '<td> <a style="text-decoration:none; color:blue;" href="my-profile.php?id=' . $userid . '">' . $row['username'] . '</a></td>';
+    echo '<td> <a style="text-decoration:none; color:blue;" href="my-profile.php?id=' . $userid . '">' . ucwords($row['username']) . '</a></td>';
 
-    $profile = $User->selectUserDetailsById($userid);
+    $profile = $Profile->selectUserDetailsById($userid);
 
     if (isset($profile['firstName']) && isset($profile['lastName'])) {
-     echo '<td> ' . $profile['firstName'] . ' ' . $profile['lastName'] . '</td>';
+     echo '<td> ' .ucwords($profile['firstName']) . ' ' . ucwords($profile['lastName']) . '</td>';
     } else {
-     echo '<td> ' . $row['username'] . '</td>';
+     echo '<td> ' . ucwords($row['username']) . '</td>';
     }
     try {
      $roleid = $row['roleid'];
-     $role = $User->selectRoleByUser($roleid);
+     $role = $Roles->selectRoleByUser($roleid);
+     if(isset($role['role'])){
      echo '<td>' . $role['role'] . '</td>';
+     }else{
+      echo '<td> Unauthorized</td>';
+     }
     } catch (PDOException $e) {
      echo '<td>NO Role Assign</td>';
     }
