@@ -37,9 +37,10 @@ if (isset($_GET['id']) && isset($_GET['choice'])) {
 }
 ?>
 
-<form action="" method="POST">
- Are you sure you want ot delete? <br>
- <button name="Yes" class="subbtn"> Yes</button>
- <button name="No" class="delbtn"> No</button>
-
+<form action="" method="POST" class="del-form">
+ <h1>Are you sure you want ot delete?</h1> <br>
+ <div class="btn-section">
+ <button name="Yes" class="subbtn btn"> Yes</button>
+ <button name="No" class="delbtn btn"> No</button>
+ </div>
 </form>
