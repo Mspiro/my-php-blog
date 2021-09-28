@@ -38,14 +38,14 @@ include("head.php");
             <img  class="content-center" src="/blog/assets/img/userProfilePicture/' . $profile['displayProfile'] . '" alt="There is no image" width="100" height="100">
              </div> 
              <h1> Name: ' . $profile['firstName'] . ' ' . $profile['middleName'] . ' ' . $profile['lastName'] . '</h1>
-              <h3>
+              <h4>
              Role: <span style="color:Gray;">' . $role['role'] . '</span>
               <br>
                 Mobile No:- ' . $profile['mobile'] . ' <br>
                 Email:- ' . $profile['email'] . ' <br>
                 Address:- ' . $profile['city'] . ', ' . $profile['district'] . ', ' . $profile['state'] . ' , ' . $profile['country'] . ' <br>
                 
-             </h3> 
+             </h4> 
              ';
   } else {
    echo "<h1>You have to update your profile! Please check button down below </h1> ";

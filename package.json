@@ -1,22 +1,26 @@
 {
-  "name": "sass",
+  "name": "blog",
   "version": "1.0.0",
-  "description": "Converting into sass",
+  "description": "\"# my-php-blog\"",
   "main": "index.js",
   "scripts": {
-    "compile-sass": "node-sass assets/sass/main.scss assets/css/main.css -w"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "meeni",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mspiro/my-php-blog.git"
+  },
+  "keywords": [],
+  "author": "",
   "license": "ISC",
-  "dependencies": {
-    "gulp-cli": "^2.3.0",
-    "node-sass": "^6.0.1"
+  "bugs": {
+    "url": "https://github.com/Mspiro/my-php-blog/issues"
   },
+  "homepage": "https://github.com/Mspiro/my-php-blog#readme",
   "devDependencies": {
     "gulp": "^4.0.2",
-    "gulp-install": "^1.1.0",
+    "gulp-minify": "^3.1.0",
     "gulp-sass": "^5.0.0",
-    "gulp-util": "^3.0.8",
     "sass": "^1.42.1"
   }
 }

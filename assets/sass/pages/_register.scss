@@ -1,0 +1,21 @@
+@import "../abstracts/mixins";
+@import "../abstracts/variables";
+
+.form {
+  @include form;
+  margin: 8vh auto 26vh;
+  .from-content {
+    .from-list {
+      .r-p-pass-eye {
+        @include pass-eye;
+        top: 37%;
+        right: 10%
+      }
+      .r-c-pass-eye {
+        @include pass-eye;
+        top: 49%;
+        right: 10%
+      }
+    }
+  }
+}

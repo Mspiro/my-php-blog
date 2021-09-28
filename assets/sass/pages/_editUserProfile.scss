@@ -1,0 +1,26 @@
+@import "../abstracts/mixins";
+@import "../abstracts/variables";
+
+.form {
+    @include form;
+  .from-content {
+    // @include from-content;
+  
+
+    .from-list {
+      label{
+        color: $secondary-text;
+
+      }
+      .role{
+          display: flex;
+          flex-direction: row;
+
+        .radio-btn{
+          width: 15px;
+          height: auto;
+        }
+      }
+    }
+  }
+}

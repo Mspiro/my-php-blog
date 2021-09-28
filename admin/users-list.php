@@ -23,9 +23,9 @@ if (!$User->is_logged_in()) {
  <?php
  if (isset($_GET['action'])) {
    if($_GET['action']=='added'){
-  echo '<h3 style="color:Green;">User updated successfully..!</h3>';
+  echo '<h3>User updated successfully..!</h3>';
    }else{
-    echo '<h3 style="color:Green;">User added successfully..!</h3>';
+    echo '<h3>User added successfully..!</h3>';
    }
  }
  ?>
@@ -49,7 +49,7 @@ if (!$User->is_logged_in()) {
 
     $userid = $row['userid'];
     echo '<tr>';
-    echo '<td> <a style="text-decoration:none; color:blue;" href="my-profile.php?id=' . $userid . '">' . ucwords($row['username']) . '</a></td>';
+    echo '<td> <a href="my-profile.php?id=' . $userid . '">' . ucwords($row['username']) . '</a></td>';
 
     $profile = $Profile->selectUserDetailsById($userid);
 

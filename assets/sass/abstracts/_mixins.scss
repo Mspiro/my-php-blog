@@ -1,0 +1,131 @@
+@import "./variables";
+
+@mixin box {
+  width: 80vw;
+  margin: 10px 0 30px 0;
+  border-bottom: 3px solid black;
+}
+
+@mixin container {
+  background-color: $body-bg;
+  width: 100%;
+  margin: auto;
+  overflow: hidden;
+}
+
+@mixin title {
+  display: block;
+  position: relative;
+  color: #0d0f0f;
+}
+@mixin readbtn {
+  transition: all linear 0.2s;
+  background: #66ad44;
+  border: none;
+  font-size: 13px;
+  line-height: 22px;
+  border-radius: 0;
+  padding: 6px 14px;
+  font-family: "Montserrat", sans-serif;
+  border-radius: 2px;
+  color: white;
+
+  a {
+    text-decoration: none;
+    color: #fefefe;
+  }
+}
+
+@mixin form {
+  width: 420px;
+  margin: 15vh auto 26vh;
+  box-shadow: 0px 1px 10px $bg-color;
+}
+
+@mixin from-content {
+  width: 420px;
+  box-sizing: border-box;
+  padding: 40px 40px 48px;
+  background-color: #fff;
+  position: relative;
+}
+
+@mixin input {
+  width: 100%;
+  margin: 0;
+  padding: 0 0 0 6px;
+  height: 40px;
+  border: 1px solid #e9e9e9;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #353030;
+  box-shadow: none !important;
+  outline: 0 !important;
+  border: 0;
+}
+
+@mixin pass-eye {
+  position: absolute;
+}
+
+@mixin submit-btn {
+  margin-top: 16px;
+  input {
+    background-color: $secondary-text;
+    color: $body-bg;
+    font-size: 16px;
+    height: 44px;
+    width: 100%;
+    margin-left: 0px;
+    display: block;
+    border-radius: 22px;
+    outline: none;
+    border: none;
+  }
+}
+@mixin nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: $bg-color;
+  li {
+    float: left;
+    a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      &:hover {
+        background-color: $bg-color-dark;
+      }
+    }
+  }
+}
+
+@mixin content {
+  padding: 10px 5%;
+  width: 90%;
+  height: 100%;
+  margin: auto 70px;
+  border-left-color: $body-bg;
+  border-right-color: $body-bg;
+}
+
+@mixin btn {
+  transition: all linear 0.2s;
+  border: none;
+  font-size: 13px;
+  line-height: 22px;
+  border-radius: 0;
+  padding: 6px 14px;
+  font-family: "Montserrat", sans-serif;
+  border-radius: 2px;
+  color: white;
+  a {
+    text-decoration: none;
+    color: #fefefe;
+  }
+}

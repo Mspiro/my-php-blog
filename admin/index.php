@@ -41,8 +41,7 @@ if (!$User->is_logged_in()) {
 
    foreach ($rows as $row) {
     echo '<tr>';
-    echo '<td > <a style="text-decoration: none;
-                color: blue;"  href="show.php?id=' . $row['articleId'] . '">' . $row['articleTitle'] . '</a></td>';
+    echo '<td > <a href="show.php?id=' . $row['articleId'] . '">' . $row['articleTitle'] . '</a></td>';
     echo '<td>' . date(' jS M Y', strtotime($row['articleEditDate'])) . '</td>';
   ?>
     <td>

@@ -1,1 +1,22 @@
+@import "../abstracts/variables";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background: $body-bg;
+  height: 100vh;
+  a {
+    text-decoration: none;
+    color: $primary-text;
+  }
+  p {
+    text-align: justify;
+  }
+}

@@ -1,0 +1,33 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+@import "../layout/header";
+
+.content {
+  @include content;
+  a{
+    text-decoration: none;
+    color: $primary-text;
+  }
+  h1{
+    text-decoration: none;
+  }
+
+  .editbtn{
+    @include btn;
+    background-color: #66ad44;
+  }
+
+  .delbtn{
+    @include btn;
+    background-color: #fc0527;;
+  }
+
+  h3{
+    color:Green;
+  }
+
+  h4{
+    font-size: 18.5px;
+  }
+
+}

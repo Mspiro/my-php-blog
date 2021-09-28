@@ -48,7 +48,7 @@ class Article
   function selectArticleByLimit($limit)
   {
     global $db;
-    $stmt = $db->prepare("SELECT * FROM article ORDER BY articleId DESC LIMIT " . $limit . "4");
+    $stmt = $db->prepare("SELECT * FROM article ORDER BY articleId DESC LIMIT " . $limit . ",5");
     $stmt->execute();
     $row = $stmt->fetchAll();
     return $row;
@@ -79,11 +79,7 @@ class Article
     $stmt = $db->prepare("UPDATE article SET articleTitle='$articleTitle', articleSlug='$articleSlug', articleDescrip='$articleDescrip', articleContent='$articleContent', articleEditDate=:articleEditDate, articleTags='$articleTags', articleImage='$fileName'  WHERE articleId='$articleId'")->execute(array(
       ':articleEditDate' => date('Y-m-d H:i:s'),
     ));
-  }
-
-  // Article comments
-
-  
+  }  
 }
 
 $Article = new Article();

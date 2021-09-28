@@ -1,0 +1,24 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+.form {
+  @include form;
+  margin: 8vh auto 26vh;
+  .from-content {
+    @include from-content;
+    .btn-section {
+      display: flex;
+      justify-content: space-between;
+      .submit-btn-yes {
+        input {
+          background-color:lightgreen ;
+        }
+      }
+      .submit-btn-no {
+        input {
+          background-color:crimson;
+        }
+      }
+    }
+  }
+}

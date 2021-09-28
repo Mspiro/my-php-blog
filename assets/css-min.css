@@ -20,7 +20,7 @@ td {
 tr:nth-child(even) {
   background-color: #e6dedc;
 }
-
+/* 
 .editbtn {
   transition: all linear 0.2s;
   background: #66ad44;
@@ -38,9 +38,9 @@ tr:nth-child(even) {
 .editbtn a {
   text-decoration: none;
   color: #fefefe;
-}
+} */
 
-.delbtn {
+/* .delbtn {
   transition: all linear 0.2s;
   background: #fc0527;
 
@@ -57,7 +57,7 @@ tr:nth-child(even) {
 .delbtn a {
   text-decoration: none;
   color: #fefefe;
-}
+} */
 
 .subbtn {
   transition: all linear 0.2s;

@@ -9,13 +9,13 @@ require_once("admin/classes/User.php");
 
 <body>
 
- <div style="padding-bottom:30px; border-bottom: 2px solid black; margin:10px; margin-bottom:30px;">
+ <div class="main-container">
   <?php include('carousel.php'); ?>
  </div>
  <div class="container">
   <div>
    <?php
-   $perPageRecord = 4;
+   $perPageRecord = 5;
    $pageNo = 0;
    if (isset($_GET['page'])) {
     $page = $_GET['page'];
@@ -61,13 +61,13 @@ require_once("admin/classes/User.php");
 
    <?php
    $totalRecords = $Article->totalArticle();
-   $perPageRecord = 4;
+   $perPageRecord = 5;
    $numberOfPages = ceil($totalRecords / $perPageRecord);
-   echo '<a style="padding: 0 15px;" href="index.php?page=0">First</a>';
+   echo '<a href="index.php?page=0">First</a>';
    for ($i = 1; $i <= $numberOfPages; $i++) {
 
-   ?> <a href="index.php?page=<?php echo $i ?>" style="text-decoration: none;"> <span id="pagenumber" style="padding: 0 15px;"> <?php echo $i ?> </span> </a> <?php }
-                                                                                                                                                                      echo '<a style="padding: 0 15px;" href="index.php?page=' . $numberOfPages . '">Last</a>'; ?>
+   ?> <a href="index.php?page=<?php echo $i ?>" style="text-decoration: none;"> <span id="pagenumber"> <?php echo $i ?> </span> </a> <?php }
+                                                                                                                                                                      echo '<a href="index.php?page=' . $numberOfPages . '">Last</a>'; ?>
 
 
   </div>

@@ -8,6 +8,7 @@
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
  <link rel="stylesheet" type="text/css" href="./assets/css-min.css">
  <link rel="stylesheet" type="text/css" href="./assets/style.css">
+ <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
  <title>Header</title>
 </head>
 
@@ -18,9 +19,14 @@
 
  <ul class="ulclass">
   <li><a href="./">Home</a></li>
+  <!-- <li><a href="">Menu</a></li>
+  <li><a href="">Menu</a></li>
+  <li><a href="">Menu</a></li>
+  <li><a href="">Menu</a></li> -->
+
   <li class="logout-btn" style="float:right;"><a href="./admin/logout.php" style="color: red;">Logout</a></li>
-  <li class="reg-log-btn" style="float: right;"><a class="adminbtn" href="./admin/">Login</a></li>
-  <li class="reg-log-btn" style="float: right;"><a class="adminbtn" href="./register.php">Register</a></li>
+  <li class="reg-log-btn" style="float: right;"><a class="" href="./admin/">Login</a></li>
+  <li class="reg-log-btn" style="float: right;"><a class="" href="./register.php">Register</a></li>
 
  </ul>
 

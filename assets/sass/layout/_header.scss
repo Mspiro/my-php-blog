@@ -1,0 +1,10 @@
+@import "../base/reset";
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+.ulclass {
+  @include nav;
+  &.nav-item-right{
+    float: right;
+  }
+}

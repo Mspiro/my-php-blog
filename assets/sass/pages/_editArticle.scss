@@ -1,0 +1,18 @@
+@import "../abstracts/mixins";
+@import "../abstracts/variables";
+@import "../pages/addArticle";
+
+.edit-article-form{
+  margin:0;
+  padding: 0 0px;
+  fieldset{
+    margin: 15px;
+    border: none;
+    input:focus{
+      box-shadow: 0px 0px 10px $secondary-text;
+    }
+    textarea:focus{
+      box-shadow: 0px 0px 7px $secondary-text;
+    }
+  }
+}

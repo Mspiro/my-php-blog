@@ -7,16 +7,11 @@
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+ <link rel="stylesheet" href="assets/css/main.css">
  <title>Carousel</title>
 </head>
 
 <body>
-
- <?php
- // $image = $db->query("SELECT articleImage FROM article ORDER BY articleId DESC limit 3");
- // $image = $image->fetch(PDO::FETCH_ASSOC);
- ?>
-
  <div id="myslidshow" class="carousel slide carousel-fade" data-ride="carousel">
   <ol class="carousel-indicators">
    <li class="active" data-target="#myslidshow" data-slide-to="0"></li>
@@ -25,34 +20,33 @@
    <li data-target="#myslidshow" data-slide-to="3"></li>
   </ol>
 
-
   <div class="carousel-inner">
    <div class="carousel-item active">
     <img src="./assets/img/articleImages/img1.jpg" class="d-block w-100" height="400">
-    <div class="carousel-caption d-none d-md-block" style="color: white; align-items:center; text-align:center">
-     <h4 style="font-size:50px; ">Learn web Development</h4>
-     <p style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+    <div class="carousel-caption d-none d-md-block">
+     <h4>Learn web Development</h4>
+     <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
     </div>
    </div>
    <div class="carousel-item">
     <img src="./assets/img/articleImages/img2.jpg" class="d-block w-100" height="400">
-    <div class="carousel-caption d-none d-md-block" style="color: white; align-items:center; text-align:center">
-     <h4 style="font-size:50px; ">Learn JavaScript Development</h4>
-     <p style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+    <div class="carousel-caption d-none d-md-block">
+     <h4>Learn JavaScript Development</h4>
+     <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
     </div>
    </div>
    <div class="carousel-item">
     <img src="./assets/img/articleImages/img3.jpg" class="d-block w-100" height="400">
-    <div class="carousel-caption d-none d-md-block" style="color: white; align-items:center; text-align:center">
-     <h4 style="font-size:50px; ">Learn SASS Development</h4>
-     <p style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+    <div class="carousel-caption d-none d-md-block" >
+     <h4>Learn SASS Development</h4>
+     <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
     </div>
    </div>
    <div class="carousel-item">
     <img src="./assets/img/articleImages/img4.jpg" class="d-block w-100" height="400">
-    <div class="carousel-caption d-none d-md-block" style="color: white; align-items:center; text-align:center">
-     <h4 style="font-size:50px; ">Learn OOPS Development</h4>
-     <p style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+    <div class="carousel-caption d-none d-md-block">
+     <h4>Learn OOPS Development</h4>
+     <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
     </div>
    </div>
   </div>
