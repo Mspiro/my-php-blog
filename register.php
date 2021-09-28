@@ -51,9 +51,7 @@ include_once("admin/classes/User.php");
   }
   ?>
 
-
-
-  <form action="" method="post" class="form">
+  <form action="" method="post" class="reg-form">
     <div class="from-content">
       <h1>Register Into Blog</h1>
       <div class="from">

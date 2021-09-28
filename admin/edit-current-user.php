@@ -186,7 +186,6 @@ include("classes/Roles.php");
             }
           }
           ?>
-
           </p>
           <div class="submit-btn">
           <input type="submit" name="submit" value="Update" />

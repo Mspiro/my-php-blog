@@ -1,21 +1,88 @@
 @import "../abstracts/mixins";
 @import "../abstracts/variables";
 
-.form {
+.reg-form {
   @include form;
-  margin: 8vh auto 26vh;
+  margin: 6vh auto 26vh;
   .from-content {
+    @include from-content;
+    h1 {
+      font-size: 18px;
+      color: #353030;
+      font-weight: 600;
+      margin: 0 0 40px;
+    }
+
+    .from {
+      margin-top: 20px;
+    }
     .from-list {
+      margin-top: 24px;
+
+      input {
+        @include input;
+      }
+      .pass-eye {
+        @include pass-eye;
+        top: 46%;
+        right: 10%;
+      }
       .r-p-pass-eye {
         @include pass-eye;
         top: 37%;
-        right: 10%
+        right: 10%;
       }
       .r-c-pass-eye {
         @include pass-eye;
         top: 49%;
-        right: 10%
+        right: 10%;
       }
+    }
+    .tip {
+      font-size: 16px;
+      user-select: none;
+      margin-top: 20px;
+
+      p {
+        display: block;
+      }
+      a {
+        color: $primary-text;
+        vertical-align: middle;
+        text-decoration: none;
+      }
+      .signin-tip {
+        text-align: center;
+      }
+      span {
+        padding-left: 2px;
+        margin-left: 18%;
+      }
+    }
+    .submit-btn {
+      @include submit-btn;
     }
   }
 }
+
+// @import "../abstracts/mixins";
+// @import "../abstracts/variables";
+
+// .reg-form {
+//   @include form;
+//   margin: 6vh auto 26vh;
+//   .from-content {
+//     .from-list {
+//       .r-p-pass-eye {
+//         @include pass-eye;
+//         top: 37%;
+//         right: 10%
+//       }
+//       .r-c-pass-eye {
+//         @include pass-eye;
+//         top: 49%;
+//         right: 10%
+//       }
+//     }
+//   }
+// }

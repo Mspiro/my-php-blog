@@ -1,9 +1,9 @@
-.message {
+/* .message {
   color: red;
   font-family: arial;
   margin-left: 500px;
-}
-
+} */
+/* 
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -19,7 +19,7 @@ td {
 
 tr:nth-child(even) {
   background-color: #e6dedc;
-}
+} */
 /* 
 .editbtn {
   transition: all linear 0.2s;
@@ -59,7 +59,7 @@ tr:nth-child(even) {
   color: #fefefe;
 } */
 
-.subbtn {
+/* .subbtn {
   transition: all linear 0.2s;
   background: #66ad44;
   cursor: pointer;
@@ -78,4 +78,4 @@ tr:nth-child(even) {
 
 .logoutbtn {
   float: right;
-}
+} */
