@@ -12,7 +12,7 @@
  <div class="footer">
   <center>
    <h2>
-    Blog powered By @<a target="_blank" href="#">Blog</a>
+    Blog powered By @<a href="#">Blog</a>
    </h2>
   </center>
  </div>

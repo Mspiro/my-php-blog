@@ -1,13 +1,11 @@
 <?php
 include('add-stuff.php');
-// include("sidebar.php");
 include("classes/Profile.php");
 include("classes/Roles.php");
 
 
 ?>
 <div class="content">
-  <!-- <h2>Edit My Profile</h2> -->
   <?php
   $userid = $_GET['id'];
   $profile  = $Profile->selectUserDetailsById($userid);

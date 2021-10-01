@@ -1,13 +1,12 @@
 <?php
 include_once("includes/config.php");
 include_once("admin/classes/User.php");
-?>
-<?php require_once("head.php"); ?>
+require_once("head.php"); 
+include("header.php"); ?>
 <title>Blog</title>
 
 <body>
 
-  <?php include("header.php"); ?>
 
 
   <?php

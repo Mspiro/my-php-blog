@@ -14,10 +14,8 @@ if (!$User->is_logged_in()) {
 <title>Admin Page</title>
 <body>
   
-
 <?php include("header.php"); ?>
 
-<?php //include("sidebar.php"); ?>
 <div class="content">
  <?php
  if (isset($_GET['action'])) {

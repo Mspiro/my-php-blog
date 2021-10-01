@@ -23,7 +23,6 @@ if (!$User->is_logged_in()) {
  <table>
   <tr>
    <th>Title</th>
-   <!-- <th>Operation</th> -->
   </tr>
   <?php
   try {
@@ -33,15 +32,6 @@ if (!$User->is_logged_in()) {
    foreach ($row as $row) {
     echo '<tr>';
     echo '<td>' . $row['role'] . '</td>';
-  ?>
-
-    <td>
-     <!-- <button class="editbtn"> <a href="">Edit</a> </button> -->
-     <!-- <button class="delbtn"> <a href="">Delete</a> </button> -->
-
-    </td>
-
-  <?php
     echo '</tr>';
    }
   } catch (PDOException $e) {
@@ -52,5 +42,4 @@ if (!$User->is_logged_in()) {
 
  <p><button class="editbtn"><a href='add-user-role.php'>Add New Role</a></button></p>
 </div>
-<?php // include("sidebar.php");  ?>
 <?php include("footer.php");  ?>

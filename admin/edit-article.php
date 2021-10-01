@@ -20,10 +20,6 @@ if (!$User->is_logged_in()) {
 <body>
   <?php include("header.php"); ?>
 
-  <?php //include("sidebar.php"); 
-  ?>
-
-
   <div class="content">
 
     <h2>Edit Post</h2>

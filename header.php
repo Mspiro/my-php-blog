@@ -19,12 +19,7 @@
 
  <ul class="ulclass">
   <li><a href="./">Home</a></li>
-  <!-- <li><a href="">Menu</a></li>
-  <li><a href="">Menu</a></li>
-  <li><a href="">Menu</a></li>
-  <li><a href="">Menu</a></li> -->
-
-  <li class="logout-btn" style="float:right;"><a href="./admin/logout.php" style="color: red;">Logout</a></li>
+   <li class="logout-btn" style="float:right;"><a href="./admin/logout.php" style="color: red;">Logout</a></li>
   <li class="reg-log-btn" style="float: right;"><a class="" href="./admin/">Login</a></li>
   <li class="reg-log-btn" style="float: right;"><a class="" href="./register.php">Register</a></li>
 

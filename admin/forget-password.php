@@ -1,23 +1,16 @@
 <?php
 require_once('../includes/config.php');
-// require_once('classes/class.user.php');
 require_once('classes/User.php');
-// require_once('../header.php');
+
 ?>
 
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-  <link rel="stylesheet" type="text/css" href="http://localhost/blog/assets/style.css">
-  <link rel="stylesheet" type="text/css" href="http://localhost/blog/assets/css-min.css">
   <link rel="stylesheet" type="text/css" href="http://localhost/blog/assets/css/main.css">
 </head>
 
 <body>
-
-  <!-- <h2 class="account-forms" style="margin-top: 30vh;"> Change Password</h2> -->
   <?php
-
-
   if (isset($_POST['submit'])) {
     extract($_POST);
 

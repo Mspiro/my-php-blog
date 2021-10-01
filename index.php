@@ -5,8 +5,9 @@ require_once("admin/classes/User.php");
 
 ?>
 <title>Blog</title>
-<?php include("header.php"); ?>
 
+<?php include("header.php"); 
+?>
 <body>
 
  <div class="main-container">

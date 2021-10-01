@@ -32,7 +32,7 @@ class User
    $_SESSION['loggedin'] = true;
    $_SESSION['username'] = $result['username'];
    $_SESSION['userid'] = $result['userid'];
-   header('location:blog-users.php');
+   header('location:../index.php');
    exit;
   } else {
    echo "<p class='invalid'>Invalid Username or Password </p>";

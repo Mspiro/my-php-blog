@@ -55,7 +55,6 @@ if (!$User->is_logged_in()) {
     }
   }
   ?>
-  <link rel="stylesheet" href="../assets/css/main.css">
 
   <form action="" method="post" class="form">
     <div class="from-content">

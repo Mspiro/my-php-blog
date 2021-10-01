@@ -1,7 +1,7 @@
 <?php include('add-stuff.php');
 include('classes/Article.php');
 include('classes/Profile.php');
-// include('sidebar.php');
+include('head.php');
 
 if (isset($_GET['id']) && isset($_GET['choice'])) {
   $id = $_GET['id'];
@@ -41,7 +41,6 @@ if (isset($_GET['id']) && isset($_GET['choice'])) {
   <div class="from-content">
     <h1>Are you sure you want ot delete?</h1>
     <div class="from">
-
       <div class="btn-section">
         <div class="submit-btn submit-btn-yes">
           <input type="submit" name="Yes" value="Yes" />

@@ -1,8 +1,6 @@
 <?php
 require_once('../includes/config.php');
-// require_once('classes/User.php');
 require_once('classes/User.php');
-// include_once('../header.php');
 
 if ($User->is_logged_in()) {
   header('location:index.php');
@@ -18,9 +16,6 @@ if ($User->is_logged_in()) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Login</title>
-  <link rel="stylesheet" href="assets/style.css" class="css">
-  <link rel="stylesheet" href="../assets/style.css" class="css">
-  <link rel="stylesheet" href="../assets/css-min.css" class="css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
   <link rel="stylesheet" href="../assets/css/main.css" class="css">
 </head>

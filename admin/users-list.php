@@ -1,7 +1,5 @@
 <?php
-
 require_once('../includes/config.php');
-// require_once('classes/class.user.php');
 require_once('classes/User.php');
 require_once('classes/Roles.php');
 require_once('classes/Profile.php');
@@ -18,7 +16,6 @@ if (!$User->is_logged_in()) {
 
 <?php include("header.php"); ?>
 
-<?php //include("sidebar.php"); ?>
 <div class="content">
  <?php
  if (isset($_GET['action'])) {

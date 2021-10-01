@@ -1,6 +1,5 @@
 <?php
 require_once('../includes/config.php');
-// require_once('classes/class.user.php');
 require_once('classes/User.php');
 require_once('classes/Article.php');
 
@@ -11,7 +10,6 @@ if (!$User->is_logged_in()) {
 ?>
 <?php include("head.php"); ?>
 <title>Blog for Blogger</title>
-<link rel="stylesheet" href="../assets/css/main.css">
 <script src='https://cdn.tiny.cloud/1/5hgs2bkc5j9hn0hx4q19pdj0x3p0kf3md7l91r7yzj2i2mmk/tinymce/5/tinymce.min.js' referrerpolicy="origin">
 </script>
 <script>
@@ -24,10 +22,6 @@ if (!$User->is_logged_in()) {
 
 
   <?php include("header.php"); ?>
-  <?php //include("sidebar.php"); 
-  ?>
-
-  <!-- <div class="content"> -->
     <h1>Add New Article</h1>
     <?php
     if (isset($_POST['submit'])) {
