@@ -36,7 +36,15 @@ include("header.php"); ?>
     if (!isset($error)) {
       try {
         $stmt = $User->addNewUser();
-        header('location: blog-users.php?action=added');
+        if(isset($_SESSION)){
+        header('location: ./admin/users-list.php?action=added');
+      }
+      else{
+        // $User->login();
+        // header('location: ./admin/index.php');
+        // exit;
+        header('location: ./admin/login.php');
+        }
         exit;
       } catch (PDOException $e) {
         echo $e->getMessage();

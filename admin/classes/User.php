@@ -37,7 +37,6 @@ class User
   } else {
    echo "<p class='invalid'>Invalid Username or Password </p>";
   }
-
   return $result;
  }
 

@@ -76,7 +76,7 @@ class Article
   {
     global $db;
     extract($_POST);
-    $stmt = $db->prepare("UPDATE article SET articleTitle='$articleTitle', articleSlug='$articleSlug', articleDescrip='$articleDescrip', articleContent='$articleContent', articleEditDate=:articleEditDate, articleTags='$articleTags', articleImage='$fileName'  WHERE articleId='$articleId'")->execute(array(
+    $db->prepare("UPDATE article SET articleTitle='$articleTitle', articleSlug='$articleSlug', articleDescrip='$articleDescrip', articleContent='$articleContent', articleEditDate=:articleEditDate, articleTags='$articleTags', articleImage='$fileName'  WHERE articleId='$articleId'")->execute(array(
       ':articleEditDate' => date('Y-m-d H:i:s'),
     ));
   }  
